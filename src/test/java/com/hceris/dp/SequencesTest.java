@@ -28,4 +28,14 @@ public class SequencesTest {
 	public void testLongestIncreasingRunEnd() {
 		assertTrue(Arrays.equals(new int[] { 7, 9, 10, 11 }, Sequences.longestIncreasingRun(new int[] { 1, 2, 3, 0, 5, 8, 7, 9, 10, 11})));
 	}
+	
+	@Test
+	public void testLongestIncreasingSequenceSimple() {
+		assertTrue(Arrays.equals(new int[] { 4 }, Sequences.longestIncreasingSequence(new int[] { 4 })));
+	}
+	
+	@Test
+	public void testLongestIncreasingSequence() {
+		assertTrue(Arrays.equals(new int[] { 2, 3, 6 }, Sequences.longestIncreasingSequence(new int[] { 9, 5, 2, 8, 7, 3, 1, 6, 4 })));
+	}
 }

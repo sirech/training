@@ -26,4 +26,32 @@ public class Sequences {
         }
         return run;
     }
+
+    public static int[] longestIncreasingSequence(int[] a) {
+        int[] seq = new int[a.length];
+        int[] prev = new int[a.length];
+        int max = 0;
+
+        for(int i = 0; i < a.length; i++) {
+            seq[i] = 1;
+            prev[i] = -1;
+
+            for(int j = 0; j < i; j++) {
+                if(a[j] < a[i] && seq[j] + 1 > seq[i]) {
+                    seq[i] = seq[j] + 1;
+                    prev[i] = j;
+                }
+            }
+
+            if(seq[i] > seq[max]) {
+                max = i;
+            }
+        }
+
+        int[] res = new int[seq[max]];
+        for(int i = seq[max] - 1, k = max; k != -1; i--, k = prev[k]) {
+            res[i] = a[k];
+        }
+        return res;
+    }
 }
