@@ -54,4 +54,49 @@ public class Sequences {
         }
         return res;
     }
+
+    public static int[] maximumSubArray(int[] a) {
+        int start = -1;
+        int end = -2;
+        int max = 0;
+        int maxhere = 0;
+
+        for(int i = 0; i < a.length; i++) {
+            int newmaxhere = Math.max(0, maxhere + a[i]);
+            if(newmaxhere > max) {
+                max = newmaxhere;
+                end = i;
+                if(maxhere == 0) {
+                    start = i;
+                }
+            }
+            maxhere = newmaxhere;
+        }
+
+        int[] res = new int[end - start + 1];
+        for(int i = 0; i < res.length; i++) {
+            res[i] = a[i + start];
+        }
+
+        return res;
+    }
+
+    public static int cutRod(int[] p, int n) {
+        int[] partial = new int[n + 1];
+        int[] cuts = new int[n + 1];
+        partial[0] = 0;
+
+        for(int i = 1; i <= n; i++) {
+            int q = -1;
+            for(int j = 1; j <= i; j++) {
+                if( q < p[j] + partial[i - j]) {
+                    q = p[j] + partial[i - j];
+                    cuts[i] = j;
+                }
+            }
+            partial[i] = q;
+        }
+
+        return partial[n];
+    }
 }

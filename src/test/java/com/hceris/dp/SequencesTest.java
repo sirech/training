@@ -38,4 +38,29 @@ public class SequencesTest {
 	public void testLongestIncreasingSequence() {
 		assertTrue(Arrays.equals(new int[] { 2, 3, 6 }, Sequences.longestIncreasingSequence(new int[] { 9, 5, 2, 8, 7, 3, 1, 6, 4 })));
 	}
+	
+	@Test
+	public void testMaximumSubArrayNegative() {
+		assertTrue(Arrays.equals(new int[0], Sequences.maximumSubArray(new int[] { -1, -5, -3})));
+	}
+	
+	@Test
+	public void testMaximumSubArrayPositive() {
+		assertTrue(Arrays.equals(new int[] { 1, 2, 3}, Sequences.maximumSubArray(new int[] { 1, 2, 3})));
+	}
+	
+	@Test
+	public void testMaximumSubArray() {
+		assertTrue(Arrays.equals(new int[] { 4, -1, 2, 1 }, Sequences.maximumSubArray(new int[] { -2, 1, -3, 4, -1, 2, 1, -5, 4})));
+	}
+	
+	@Test
+	public void testCutRod() {
+		int[] p = new int[] {0, 1, 5, 8, 9, 10, 17, 17, 20};
+		int[] results = new int[] { 0, 1,  5, 8, 10, 13, 17, 18, 22 };
+		for(int i = 0; i < results.length; i++) {
+			assertEquals(results[i], Sequences.cutRod(p, i));
+		}
+	}
+
 }
