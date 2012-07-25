@@ -62,5 +62,9 @@ public class SequencesTest {
 			assertEquals(results[i], Sequences.cutRod(p, i));
 		}
 	}
-
+	
+	@Test
+	public void testLongestCommonSubsequence() {
+		assertEquals("MJAU", Sequences.longestCommonSubsequence("XMJYAUZ", "MZJAWXU"));
+	}
 }

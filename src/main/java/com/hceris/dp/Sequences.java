@@ -99,4 +99,36 @@ public class Sequences {
 
         return partial[n];
     }
+
+    public static String longestCommonSubsequence(String a, String b) {
+        return new String(longestCommonSubsequence(a.toCharArray(), b.toCharArray()));
+    }
+
+    public static char[] longestCommonSubsequence(char[] a, char[] b) {
+        int[][] m = new int[a.length + 1][b.length + 1];
+
+        for(int i = 1; i <= a.length; i++) {
+            for(int j = 1; j <= b.length; j++) {
+                if(a[i-1] == b[j-1]) {
+                    m[i][j] = m[i-1][j-1] + 1;
+                } else {
+                    m[i][j] = Math.max(m[i-1][j], m[i][j-1]);
+                }
+            }
+        }
+
+        char[] res = new char[m[a.length][b.length]];
+        for(int k = res.length - 1, i = a.length, j = b.length; i > 0 && j > 0; ){
+            if(a[i - 1] == b[j - 1]) {
+                res[k] = a[i - 1];
+                k--; i--; j--;
+            } else if (m[i][j - 1] > m[i - 1][j]) {
+                j--;
+            } else {
+                i--;
+            }
+        }
+
+        return res;
+    }
 }
