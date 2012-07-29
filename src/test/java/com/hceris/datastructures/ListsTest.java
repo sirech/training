@@ -26,4 +26,12 @@ public class ListsTest {
 	public void testSumMostSignificantFirst() {
 		assertEquals("912", toString(Lists.sumMostSignificantFirst(new CCILinkedList<Integer>(Arrays.asList(6, 1, 7)), new CCILinkedList<Integer>(Arrays.asList(2, 9, 5)))));
 	}
+	
+	@Test
+	public void testLastNElements() {
+		int i = 0;
+		for(Integer result : Lists.lastNElements(Arrays.asList(-1, -2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 1, 2), 3)) {
+			assertEquals(i++, (int)result);
+		}
+	}
 }

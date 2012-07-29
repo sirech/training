@@ -39,4 +39,27 @@ public class Lists {
         }
         return n;
     }
+
+    public static <T> Iterable<T> lastNElements(Iterable<T> it, int n) {
+    	return lastNElements(it.iterator(), n);
+    }
+    
+    public static <T> Iterable<T> lastNElements(Iterator<T> it, int n) {
+        CircularArray<T> a = new CircularArray<T>(n);
+
+        for(int i = 0; i < n; i++) {
+            if(!it.hasNext()) {
+                throw new IllegalArgumentException();
+            }
+
+            a.set(i, it.next());
+        }
+
+        while(it.hasNext()) {
+            a.shift(1);
+            a.set(n - 1, it.next());
+        }
+        
+        return a;
+    }
 }
