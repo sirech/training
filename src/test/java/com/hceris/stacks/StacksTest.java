@@ -1,4 +1,4 @@
-package com.hceris.datastructures;
+package com.hceris.stacks;
 
 import static org.junit.Assert.*;
 

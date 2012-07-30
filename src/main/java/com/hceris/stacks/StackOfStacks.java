@@ -1,4 +1,4 @@
-package com.hceris.datastructures;
+package com.hceris.stacks;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
