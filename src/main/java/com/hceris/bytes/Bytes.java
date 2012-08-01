@@ -37,4 +37,14 @@ public class Bytes {
         b = ((b >>> 8) & MASK8) | ((b & MASK8) << 8);
         return ((b >>> 16) & MASK16) | ((b & MASK16) << 16);
     }
+
+    public static int insert(int n, int m, int start, int end) {
+        int left = ~0 << (end+1);
+        int right = (1 << start) - 1;
+        return (n & (left | right)) | (m << start);
+    }
+
+    public static int numberOfDifferentBits(int b1, int b2) {
+        return countBitsSparse(b1 ^ b2);
+    }
 }

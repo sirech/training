@@ -36,5 +36,16 @@ public class BytesTest {
 		assertEquals(0xF350AE55, Bytes.reverse(0xAA750ACF));
 		assertEquals(Integer.MIN_VALUE, Bytes.reverse(1));
 	}
-
+	
+	@Test
+	public void testInsert() {
+		assertEquals(Integer.parseInt("101001101", 2), Bytes.insert(Integer.parseInt("101111101", 2), Integer.parseInt("10011", 2), 2, 6));
+		assertEquals(Integer.parseInt("110001011", 2), Bytes.insert(Integer.parseInt("111101111", 2), Integer.parseInt("00010", 2), 2, 6));
+	}
+	
+	@Test
+	public void testNumberOfDifferentBits() {
+		assertEquals(2, Bytes.numberOfDifferentBits(31, 14));
+		assertEquals(32, Bytes.numberOfDifferentBits(-1, 0));
+	}
 }
