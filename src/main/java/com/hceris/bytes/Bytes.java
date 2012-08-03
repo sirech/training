@@ -47,4 +47,8 @@ public class Bytes {
     public static int numberOfDifferentBits(int b1, int b2) {
         return countBitsSparse(b1 ^ b2);
     }
+
+    public static int max(int a, int b) {
+    	return a - (((a-b) >> 31) & (a - b));
+    }
 }

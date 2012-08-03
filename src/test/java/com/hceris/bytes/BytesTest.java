@@ -48,4 +48,12 @@ public class BytesTest {
 		assertEquals(2, Bytes.numberOfDifferentBits(31, 14));
 		assertEquals(32, Bytes.numberOfDifferentBits(-1, 0));
 	}
+	
+	@Test
+	public void testMax() throws Exception {
+		assertEquals(335, Bytes.max(335, 32));
+		assertEquals(5, Bytes.max(5, 3));
+		assertEquals(1, Bytes.max(0, 1));
+		assertEquals(-1, Bytes.max(-2, -1));
+	}
 }

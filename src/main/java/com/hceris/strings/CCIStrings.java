@@ -61,7 +61,7 @@ public class CCIStrings {
             while(whitespace >= 0 && Character.isWhitespace(sChars[whitespace])) {
                 whitespace--;
             }
-            
+
             newPointer = putWhitespace(sChars, newPointer);
             current = whitespace;
         }
@@ -82,7 +82,7 @@ public class CCIStrings {
         s[end] = '0';
         s[end-1] = '2';
         s[end-2] = '%';
-        
+
         return end - 3;
     }
 
@@ -104,10 +104,63 @@ public class CCIStrings {
             if(repetitions > 1) {
                 builder.append(repetitions);
             }
-            
+
             i = end;
         }
 
         return builder.toString();
+    }
+
+    public static class Frequencies {
+        int total;
+        int partial;
+
+        public Frequencies(int total, int partial) {
+            this.total = total;
+            this.partial = partial;
+        }
+    }
+
+    private static int charToCode(char c) {
+        switch(c) {
+        case 'R' : return 0;
+        case 'G' : return 1;
+        case 'Y' : return 2;
+        case 'B' : return 3;
+        default : return -1;
+        }
+    }
+
+    private static boolean updatePartial(int[] partials, char c, int modifier) {
+        int i = charToCode(c);
+        partials[i] = partials[i] + modifier;
+        return partials[i] == 0;           
+        
+    }
+    
+    public static Frequencies estimate(String guess, String solution) {
+        if(guess.length() != solution.length()) {
+            return null;
+        }
+
+        int[] partials = new int[4];
+        int partialsCount = 0;
+        int complete = 0;
+
+        for(int i = 0; i < guess.length(); i++) {
+            if(guess.charAt(i) == solution.charAt(i)) {
+                complete++;
+            } else {
+                if(updatePartial(partials, guess.charAt(i), -1)) {
+                    partialsCount++;
+                }
+
+                if(updatePartial(partials, solution.charAt(i), +1)) {
+                    partialsCount++;
+                }
+            }
+        }
+
+        return new Frequencies(complete, partialsCount);
     }
 }

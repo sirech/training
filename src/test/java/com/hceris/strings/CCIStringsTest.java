@@ -41,4 +41,12 @@ public class CCIStringsTest {
 	public void testCompressEdge() {
 		assertEquals("a3b2c", CCIStrings.compress("aaabbc"));
 	}
+	
+	@Test
+	public void testEstimate() {
+		CCIStrings.Frequencies f = CCIStrings.estimate("GGRR", "RGBY");
+		assertEquals(1, f.total);
+		assertEquals(1, f.partial);
+	
+	}
 }
