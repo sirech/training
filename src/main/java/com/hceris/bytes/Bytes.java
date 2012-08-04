@@ -51,4 +51,13 @@ public class Bytes {
     public static int max(int a, int b) {
     	return a - (((a-b) >> 31) & (a - b));
     }
+
+    public static int sum(int a, int b) {
+        while(b != 0) {
+            int carry = (a & b) << 1;
+            a ^= b;
+            b = carry;
+        }
+        return a;
+    }
 }

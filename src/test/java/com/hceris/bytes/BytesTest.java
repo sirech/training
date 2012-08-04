@@ -56,4 +56,12 @@ public class BytesTest {
 		assertEquals(1, Bytes.max(0, 1));
 		assertEquals(-1, Bytes.max(-2, -1));
 	}
+	
+	@Test
+	public void testSum() throws Exception {
+		assertEquals(3, Bytes.sum(3, 0));
+		assertEquals(3, Bytes.sum(0, 3));
+		assertEquals(3, Bytes.sum(4, -1));
+		assertEquals(567, Bytes.sum(323, 244));		
+	}
 }

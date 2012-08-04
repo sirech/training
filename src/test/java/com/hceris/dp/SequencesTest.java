@@ -67,4 +67,11 @@ public class SequencesTest {
 	public void testLongestCommonSubsequence() {
 		assertEquals("MJAU", Sequences.longestCommonSubsequence("XMJYAUZ", "MZJAWXU"));
 	}
+	
+	@Test
+	public void testMinDistance() throws Exception {
+		assertEquals(Integer.MAX_VALUE, Sequences.minDistance(Arrays.asList("the", "flying", "monster", "is", "green"), "the", "blue"));
+		assertEquals(0, Sequences.minDistance(Arrays.asList("the", "flying", "monster", "is", "green", "and", "is", "the", "thing", "called", "the", "monster"), "the", "monster"));
+		
+	}
 }

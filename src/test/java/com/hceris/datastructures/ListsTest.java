@@ -34,4 +34,14 @@ public class ListsTest {
 			assertEquals(i++, (int)result);
 		}
 	}
+	
+	@Test
+	public void testShuffleDoesNotCrash() throws Exception {
+		Lists.shuffle(new Integer[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 });		
+	}
+	
+	@Test
+	public void testChooseDoesNotCrash() throws Exception {
+		Lists.choose(new Integer[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 }, 3);		
+	}
 }

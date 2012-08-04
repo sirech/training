@@ -1,9 +1,12 @@
 package com.hceris.datastructures;
 
 import java.util.Iterator;
+import java.util.Random;
 
 public class Lists {
     private Lists() {}
+
+    private static final Random rnd = new Random();
 
     public static CCILinkedList<Integer> sumLessSignificantFirst(CCILinkedList<Integer> l1, CCILinkedList<Integer> l2) {
         Iterator<Integer> it1 = l1.iterator();
@@ -61,5 +64,27 @@ public class Lists {
         }
         
         return a;
+    }
+
+    public static <T> void shuffle(T[] a) {
+        for(int i = a.length -1; i > 0; i--) {
+            swap(a, i, rnd.nextInt(i + 1));
+        }
+    }
+
+    public static <T> T[] choose(T[] a, int m) {
+        @SuppressWarnings("unchecked")
+		T[] result = (T[]) new Object[m];
+        for(int i = 0; i < m; i++) {
+            swap(a, i, rnd.nextInt(a.length - i) + i);
+            result[i] = a[i];
+        }
+        return result;
+    }
+
+    private static <T> void swap(T[] a, int x, int y) {
+        T tmp = a[x];
+        a[x] = a[y];
+        a[y] = tmp;
     }
 }

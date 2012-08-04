@@ -131,4 +131,25 @@ public class Sequences {
 
         return res;
     }
+
+    public static int minDistance(Iterable<String> words, String w1, String w2) {
+        int distance = Integer.MAX_VALUE;
+        int counter = 0;
+        String lastWord = "";
+
+        for(String word : words) {
+            if(word.equals(w1) || word.equals(w2)) {
+                if(!lastWord.isEmpty() && !lastWord.equals(word)) {
+                    distance = Math.min(distance, counter);
+                }
+                
+                lastWord = word;
+                counter = 0;
+            } else {
+                counter++;
+            }
+        }
+
+        return distance;
+    }
 }
