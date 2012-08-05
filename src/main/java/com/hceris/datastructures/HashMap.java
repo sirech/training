@@ -6,12 +6,13 @@ import java.util.Set;
 
 public class HashMap<K,V> implements Map<K,V> {
 
-    private Entry[] elements;
+    private Entry<K,V>[] elements;
     private int size;
 
 
-    public HashMap(int size) {
-        elements = new Entry[adjustSize(size)];
+    @SuppressWarnings("unchecked")
+	public HashMap(int size) {
+        elements = (Entry<K,V>[]) new Entry[adjustSize(size)];
         this.size = 0;
     }
 
@@ -40,9 +41,9 @@ public class HashMap<K,V> implements Map<K,V> {
     }
 
     private Entry<K,V> entryForKey(Object key) {
-        for(Entry e = elements[indexForKey(key)]; e != null; e = e.next) {
+        for(Entry<K,V> e = elements[indexForKey(key)]; e != null; e = e.next) {
             if(e.key.equals(key)) {
-                return (Entry<K,V>) e;
+                return e;
             }
         }
         return null;
@@ -53,7 +54,7 @@ public class HashMap<K,V> implements Map<K,V> {
     }
 
     public boolean containsValue(Object arg0) {
-        for(Entry e : elements) {
+        for(Entry<K,V> e : elements) {
             while(e != null) {
                 if(e.value.equals(arg0)) {
                     return true;
@@ -92,7 +93,7 @@ public class HashMap<K,V> implements Map<K,V> {
 
         int index = indexForKey(key);
         size++;
-        elements[index] = new Entry(key, value, elements[index]);
+        elements[index] = new Entry<K,V>(key, value, elements[index]);
         return null;
     }
 
@@ -116,12 +117,12 @@ public class HashMap<K,V> implements Map<K,V> {
             return value;
         }
 
-        Entry prev = elements[index];
-        Entry current = elements[index].next;
+        Entry<K,V> prev = elements[index];
+        Entry<K,V> current = elements[index].next;
 
         while(current != null) {
             if(current.key.equals(key)) {
-                V value = (V) current.value;
+                V value = current.value;
 
                 if(prev == elements[index]) {
                     elements[index].next = current.next;
