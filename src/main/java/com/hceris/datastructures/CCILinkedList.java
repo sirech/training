@@ -25,7 +25,7 @@ public class CCILinkedList<T> implements Iterable<T> {
     	for(@SuppressWarnings("unused") T data : this) {
     		n++;
     	}
-    	return n++;
+    	return n;
     }
 
     public void addLast(T data) {
