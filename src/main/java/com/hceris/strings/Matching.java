@@ -70,8 +70,7 @@ public class Matching {
 
         while(i < t.length) {
             if(p[i-1] == p[sub]) {
-                sub++;
-                t[i] = sub;
+                t[i] = ++sub;
                 i++;
             } else if(sub > 0) {
                 sub = t[sub];
