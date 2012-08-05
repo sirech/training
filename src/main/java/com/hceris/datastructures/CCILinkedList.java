@@ -43,11 +43,7 @@ public class CCILinkedList<T> implements Iterable<T> {
     }
 
     public void addFirst(T data) {
-        if(head == null) {
-            head = new Node<T>(data, null);
-        } else {
-            head = new Node<T>(data, head);
-        }
+    	head = new Node<T>(data, head);
     }
 
     public T get(int index) {
