@@ -76,10 +76,8 @@ public class Sort {
             aux[k++] = a[j++];
         }
 
-        k = left;
-        while(k <= rightEnd) {
-            a[k] = aux[k];
-            k++;
+        for(k = left; k <= rightEnd; k++) {
+        	a[k] = aux[k];
         }
     }
 }
