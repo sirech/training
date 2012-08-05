@@ -21,8 +21,8 @@ public class MinHeap<T extends Comparable<? super T>> {
         checkEmpty();
         T value = a[0];
         swap(a, 0, size - 1);
-        heapify(0);
         size--;
+        heapify(0);        
         return value;            
     }
 
