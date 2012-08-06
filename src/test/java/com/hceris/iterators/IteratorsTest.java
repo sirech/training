@@ -14,4 +14,9 @@ public class IteratorsTest {
 	public void testSubSetsCount() {
 		assertEquals(256, Lists.newArrayList(Iterators.subSets(Arrays.asList("a", "b", "c", "d", "e", "f", "g", "h"))).size());		
 	}
+	
+	@Test
+	public void testMajorityFind() {
+		assertEquals(7, (int) Iterators.findMajority(Arrays.asList(1, 2, 3, 4, 7, 3, 4, 2, 5, 7, 7, 7, 8, 7, 2, 7, 7, 9, 7, 7, 7)));
+	}
 }

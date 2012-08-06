@@ -44,4 +44,22 @@ public class Iterators {
             }
         };
     }
+
+    public static <T> T findMajority(Iterable<T> elements) {
+        T selected = null;
+        int count = 0;
+
+        for(T element : elements) {
+            if(count == 0) {
+                selected = element;
+                count = 1;
+            } else if(element.equals(selected)) {
+                count++;
+            } else {
+                count--;
+            }
+        }
+
+        return selected;
+    }
 }
