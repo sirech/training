@@ -2,6 +2,9 @@ package com.hceris.trees;
 
 import static org.junit.Assert.*;
 
+import java.util.Arrays;
+import java.util.Map;
+
 import org.junit.Test;
 
 public class TreesTest {
@@ -57,5 +60,13 @@ public class TreesTest {
 	public void testIsBST2False() {		
 		assertFalse(Trees.isBST2(unbalanced));
 	}
-
+	
+	@Test
+	public void testHuffmanTree() {
+		Map<Character, String> codes = Trees.huffmanTree(Arrays.asList(new HuffmanValue('c', 0.5), new HuffmanValue('a', 0.125), new HuffmanValue('b', 0.125), new HuffmanValue('e', 0.2), new HuffmanValue('d', 0.05)));
+		assertEquals("0", codes.get('c'));
+		assertEquals("110", codes.get('b'));
+		assertEquals("1110", codes.get('d'));
+		assertEquals("1111", codes.get('a'));
+	}
 }

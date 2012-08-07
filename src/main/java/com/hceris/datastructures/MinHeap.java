@@ -1,4 +1,5 @@
 package com.hceris.datastructures;
+import java.util.Collection;
 import java.util.NoSuchElementException;
 
 public class MinHeap<T extends Comparable<? super T>> {
@@ -8,6 +9,13 @@ public class MinHeap<T extends Comparable<? super T>> {
     @SuppressWarnings("unchecked")
 	public MinHeap(int maxSize) {
         a = (T[]) new Comparable[maxSize];
+    }
+
+    public MinHeap(Collection<? extends T> elements) {
+        this(elements.size());
+        for(T element : elements) {
+            offer(element);
+        }
     }
 
     public int size() { return size; }

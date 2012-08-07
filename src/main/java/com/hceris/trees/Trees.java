@@ -1,7 +1,14 @@
 package com.hceris.trees;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import com.google.common.base.Function;
+import com.google.common.collect.Collections2;
+import com.hceris.datastructures.MinHeap;
 
 public class Trees {
     private Trees() {}
@@ -94,5 +101,33 @@ public class Trees {
             return false;
         }
         return isBST2(current.right, current.value, max);
+    }
+
+    public static Map<Character, String> huffmanTree(List<HuffmanValue> values) {
+        Collection<HuffmanNode> nodes = Collections2.transform(values, new Function<HuffmanValue, HuffmanNode>() {
+                public HuffmanNode apply(HuffmanValue value) {
+                    return new HuffmanNode(value);
+                }
+            });        
+        MinHeap<HuffmanNode> heap = new MinHeap<HuffmanNode>(nodes);
+
+        while(heap.size() > 1) {
+            HuffmanNode v1 = heap.poll();
+            HuffmanNode v2 = heap.poll();
+            heap.offer(new HuffmanNode(v1.value.combine(v2.value), v1, v2));
+        }
+
+        Map<Character, String> codes = new HashMap<Character, String>();
+        huffmanCode(heap.poll(), "", codes);
+        return codes;
+    }
+
+    private static void huffmanCode(Node<HuffmanValue> current, String prefix, Map<Character, String> codes) {
+        if(current.left == null && current.right == null) {
+            codes.put(current.value.getCharacter(), prefix);
+        } else {
+            huffmanCode(current.left, prefix + "0", codes);
+            huffmanCode(current.right, prefix + "1", codes);
+        }
     }
 }
