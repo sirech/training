@@ -3,6 +3,7 @@ package com.hceris.trees;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -129,5 +130,50 @@ public class Trees {
             huffmanCode(current.left, prefix + "0", codes);
             huffmanCode(current.right, prefix + "1", codes);
         }
+    }
+
+    public static <T> List<LinkedList<Node<T>>> levels(Node<T> root) {
+        List<LinkedList<Node<T>>> result = new ArrayList<LinkedList<Node<T>>>();
+        levels(root, 0, result);
+        return result;
+    }
+
+    private static <T> void levels(Node<T> root, int currentLevel, List<LinkedList<Node<T>>> result) {
+        if(root == null) {
+            return;
+        }
+        
+        addToN(root, currentLevel, result);
+        levels(root.left, currentLevel + 1, result);
+        levels(root.right, currentLevel + 1, result);
+    }
+
+    private static <T> void addToN(Node<T> node, int level, List<LinkedList<Node<T>>> levels) {
+        if(levels.size() == level) {
+            levels.add(new LinkedList<Node<T>>());
+        }
+        levels.get(level).addLast(node);
+    }
+
+    public static int diameter(Node<?> current) {
+        if(current == null) {
+            return 0;
+        }
+
+        int lheight = height(current.left);
+        int rheight = height(current.right);
+
+        int ldiameter = diameter(current.left);
+        int rdiameter = diameter(current.right);
+
+        return Math.max(lheight + rheight + 1, Math.max(ldiameter, rdiameter));
+    }
+
+    public static int height(Node<?> current) {
+        if(current == null) {
+            return 0;
+        }
+
+        return 1 + Math.max(height(current.left), height(current.right));
     }
 }

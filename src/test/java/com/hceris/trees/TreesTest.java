@@ -3,6 +3,8 @@ package com.hceris.trees;
 import static org.junit.Assert.*;
 
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
@@ -68,5 +70,29 @@ public class TreesTest {
 		assertEquals("110", codes.get('b'));
 		assertEquals("1110", codes.get('d'));
 		assertEquals("1111", codes.get('a'));
+	}
+	
+	@Test
+	public void testLevels() {
+		List<LinkedList<Node<Integer>>> result = Trees.levels(balanced);
+		assertEquals(1, result.get(0).size());
+		
+		assertEquals(2, result.get(1).size());
+		assertEquals(2, (int) result.get(1).get(0).value);
+		assertEquals(6, (int) result.get(1).get(1).value);
+		
+		assertEquals(4, result.get(2).size());
+	}
+	
+	@Test
+	public void testHeight() {
+		assertEquals(3, Trees.height(balanced));
+		assertEquals(2, Trees.height(balanced.left));
+	}
+	
+	@Test
+	public void testDiameter() {
+		assertEquals(5, Trees.diameter(balanced));
+		assertEquals(6, Trees.diameter(unbalanced));
 	}
 }
