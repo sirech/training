@@ -74,4 +74,14 @@ public class SequencesTest {
 		assertEquals(0, Sequences.minDistance(Arrays.asList("the", "flying", "monster", "is", "green", "and", "is", "the", "thing", "called", "the", "monster"), "the", "monster"));
 		
 	}
+	
+	@Test
+	public void testLongestPalindrome() {
+		assertEquals("atttgggttta", Sequences.longestPalindrome("cacaattcccatgggttgtggag"));
+	}
+	
+	@Test
+	public void testEditDistance() {
+		assertEquals(3, Sequences.editDistance("sitting", "kitten"));
+	}
 }

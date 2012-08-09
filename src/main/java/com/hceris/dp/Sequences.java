@@ -1,5 +1,7 @@
 package com.hceris.dp;
 
+import com.hceris.strings.AFIStrings;
+
 public class Sequences {
     private Sequences() {}
 
@@ -131,6 +133,10 @@ public class Sequences {
 
         return res;
     }
+    
+    public static String longestPalindrome(String s) {
+    	return longestCommonSubsequence(s, new String(AFIStrings.reverse(s)));
+    }
 
     public static int minDistance(Iterable<String> words, String w1, String w2) {
         int distance = Integer.MAX_VALUE;
@@ -151,5 +157,33 @@ public class Sequences {
         }
 
         return distance;
+    }
+    
+    public static int editDistance(String a, String b) {
+        return editDistance(a.toCharArray(), b.toCharArray());
+    }
+
+    public static int editDistance(char[] a, char[] b) {
+        int[][] m = new int[a.length + 1][b.length + 1];
+        
+        for(int i = 0; i < a.length + 1; i++) {
+        	m[i][0] = i;
+        }
+        
+        for(int j = 0; j < b.length + 1; j++) {
+        	m[0][j] = j;
+        }
+
+        for(int i = 1; i <= a.length; i++) {
+            for(int j = 1; j <= b.length; j++) {
+                if(a[i-1] == b[j-1]) {
+                    m[i][j] = m[i-1][j-1];
+                } else {
+                    m[i][j] = Math.min(m[i-1][j], Math.min(m[i][j-1], m[i-1][j-1])) + 1;
+                }
+            }
+        }
+        
+        return m[a.length][b.length];
     }
 }
