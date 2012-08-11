@@ -2,6 +2,7 @@ package com.hceris.math;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class Math {
     private Math() {}
@@ -65,5 +66,31 @@ public class Math {
         }
 
         return a;
+    }
+
+    public static int random(int a, int b) {
+        return random(b - a) + a;        
+    }
+
+    public static int random(int n) {
+        Random rnd = new Random();
+
+        int bits = 0;
+        while((1 << bits) < n) {
+            bits++;
+        }
+
+        while(true) {
+            int number = 0;
+            for(int i = 0; i < bits; i++) {
+                if(rnd.nextBoolean()) {
+                    number |= 1 << i;
+                }
+            }
+
+            if(number < n) {
+                return number;
+            }
+        }
     }
 }

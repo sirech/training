@@ -21,5 +21,10 @@ public class MathTest {
 		assertEquals(3, Math.fibonacci(4));
 		assertEquals(13, Math.fibonacci(7));
 	}
+	
+	@Test
+	public void testRandomDoesNotCrash() {
+		assertTrue(Math.random(10) < 10);
+	}
 
 }

@@ -1,9 +1,11 @@
 package com.hceris.iterators;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Random;
 import java.util.Set;
 
 public class Iterators {
@@ -61,5 +63,33 @@ public class Iterators {
         }
 
         return selected;
+    }
+
+    public static <T> List<T> reservoirSampling(Iterable<T> elements, int k) {
+        return reservoirSampling(elements.iterator(), k);
+    }
+    
+    public static <T> List<T> reservoirSampling(Iterator<T> elements, int k) {
+        Random rnd = new Random();
+        List<T> result = new ArrayList<T>();
+
+        for(int i = 0; i < k; i++) {
+            if(!elements.hasNext()) {
+                throw new IllegalArgumentException();
+            }
+            result.add(elements.next());
+        }
+
+        int round = k;
+        while(elements.hasNext()) {
+            round++;
+            T element = elements.next();
+
+            if(Double.compare(rnd.nextDouble(), k / (double) round) > 0) {
+                result.set(rnd.nextInt(k), element);
+            }
+        }
+
+        return result;
     }
 }
