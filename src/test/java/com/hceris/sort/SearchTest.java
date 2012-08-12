@@ -44,6 +44,11 @@ public class SearchTest {
 	}
 	
 	@Test
+	public void testRotatedMin() throws Exception {
+		assertEquals(4, Search.rotatedMin(new Integer[] { 38, 40, 55, 89, 6, 13, 20, 23, 36 }));
+	}
+	
+	@Test
 	public void testBinarySearchWithEmpty() throws Exception {
 		assertEquals(4, Search.binarySearchWithEmpty(new String[] { "at", "", "", "", "ball", "", "", "car", "", "", "dad", "", ""}, "ball"));		
 	}

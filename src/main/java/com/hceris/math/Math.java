@@ -1,5 +1,6 @@
 package com.hceris.math;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -25,9 +26,9 @@ public class Math {
 
         int result = binomialCoefficient(n - 1, k, cache) + binomialCoefficient(n - 1, k - 1, cache);
         cache.put(c, result);
-        return result;        
+        return result;
     }
-    
+
     private static class Coefficient {
         final int n;
         final int k;
@@ -69,7 +70,7 @@ public class Math {
     }
 
     public static int random(int a, int b) {
-        return random(b - a) + a;        
+        return random(b - a) + a;
     }
 
     public static int random(int n) {
@@ -92,5 +93,68 @@ public class Math {
                 return number;
             }
         }
+    }
+
+    public static int[] threeSum(int[] a) {
+        if(a.length < 3) {
+            return new int[] {};
+        }
+
+        Arrays.sort(a);
+
+        for(int i = 0; i < a.length - 2; i++) {
+            int l = i + 1;
+            int r = a.length - 1;
+
+            while(l < r) {
+                int sum = a[i] + a[l] + a[r];
+
+                if(sum == 0) {
+                    return new int[] {i, l, r};
+                } else if(sum > 0) {
+                    r--;
+                } else {
+                    l++;
+                }
+            }
+        }
+
+        return new int[] {};
+    }
+
+    public static int[] threeSumClosest(int[] a, int target) {
+        if(a.length < 3) {
+            return new int[] {};
+        }
+
+        Arrays.sort(a);
+        int[] best = new int[] {};
+        int delta = Integer.MAX_VALUE;
+
+        for(int i = 0; i < a.length - 2; i++) {
+            int l = i + 1;
+            int r = a.length - 1;
+
+            while(l < r) {
+                int sum = a[i] + a[l] + a[r] - target;
+
+                if(sum == 0) {
+                    return new int[] {i, l, r};
+                } else {
+                    if(java.lang.Math.abs(sum) < delta) {
+                        delta = java.lang.Math.abs(sum);
+                        best = new int[] {i, l, r};
+                    }
+                    
+                    if(sum > 0) {
+                        r--;
+                    } else {
+                        l++;
+                    }
+                }
+            }
+        }
+
+        return best;
     }
 }

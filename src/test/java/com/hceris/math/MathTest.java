@@ -2,6 +2,8 @@ package com.hceris.math;
 
 import static org.junit.Assert.*;
 
+import java.util.Arrays;
+
 import org.junit.Test;
 
 public class MathTest {
@@ -26,5 +28,24 @@ public class MathTest {
 	public void testRandomDoesNotCrash() {
 		assertTrue(Math.random(10) < 10);
 	}
-
+	
+	@Test
+	public void test3SumNoAnswer() {
+		assertTrue(Arrays.equals(new int[] {}, Math.threeSum(new int[] { -4, -1, -1, 0 })));
+	}
+	
+	@Test
+	public void test3Sum() {
+		assertTrue(Arrays.equals(new int[] {1, 2, 5}, Math.threeSum(new int[] { -4, -1, -1, 0, 1, 2 })));
+	}
+	
+	@Test
+	public void test3SumClosestExact() {
+		assertTrue(Arrays.equals(new int[] {3, 4, 5}, Math.threeSumClosest(new int[] { -4, -1, -1, 0, 1, 2 }, 3)));
+	}
+	
+	@Test
+	public void test3SumClosest() {
+		assertTrue(Arrays.equals(new int[] {3, 4, 5}, Math.threeSumClosest(new int[] { -4, -1, -1, 0, 1, 2 }, 4)));
+	}
 }

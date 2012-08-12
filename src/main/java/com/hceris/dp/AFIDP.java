@@ -32,5 +32,42 @@ public class AFIDP {
         }
         return result;
     }
+
+    public static List<Integer> knapsackZeroOne(int[] elements, int S) {
+        boolean[][] partial = new boolean[elements.length + 1][S + 1];
+        partial[0][0] = true;
+
+        for(int i = 1; i <= elements.length; i++) {
+            for(int j = 1; j <= S; j++) {
+                if(partial[i - 1][j]) {
+                    partial[i][j] = true;
+                } else if(elements[i-1] <= j && partial[i-1][j - elements[i-1]]) {
+                    partial[i][j] = true;
+                    if(j == S) {
+                        break;
+                    }
+                }
+            }
+        }
+
+        LinkedList<Integer> result = new LinkedList<Integer>();
+        int i = 0;
+        int j = S;
+        while(!partial[i][j]) {
+            i++;
+        }
+
+        while(i > 0) {
+            if(partial[i-1][j]) {
+                i--;
+            } else {
+                result.addFirst(elements[i-1]);
+                j -= elements[i-1];
+                i--;
+            }
+        }
+        
+        return result;
+    }
         
 }

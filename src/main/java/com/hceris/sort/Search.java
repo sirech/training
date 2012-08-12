@@ -81,6 +81,23 @@ public class Search {
         return right_res;
     }
 
+    public static <T extends Comparable<? super T>> int rotatedMin(T[] a) {
+        return rotatedMin(a, 0, a.length - 1);
+    }
+
+    public static <T extends Comparable<? super T>> int rotatedMin(T[] a, int left, int right) {
+        if(left >= right) {
+            return left;
+        }
+
+        int middle = (left + right) >>> 1;
+
+        int left_min = isSorted(a, left, middle) ? left : rotatedMin(a, left, middle);
+        int right_min = isSorted(a, middle + 1, right) ? middle + 1 : rotatedMin(a, middle + 1, right);
+
+        return a[left_min].compareTo(a[right_min]) <= 0 ? left_min : right_min;
+    }
+
     private static <T extends Comparable<? super T>> boolean isSorted(T[] a, int left, int right) {
         return a[left].compareTo(a[right]) <= 0;
     }

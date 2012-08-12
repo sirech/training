@@ -27,4 +27,8 @@ public class AFIDPTest {
 		assertEquals("beyond", result.get(3)); 
 	}
 
+	@Test
+	public void testKnapsackZeroOne() {
+		assertEquals(Arrays.asList(2, 4, 5, 9), AFIDP.knapsackZeroOne(new int[] { 2, 3, 4, 5, 9, 10 }, 20));
+	}
 }

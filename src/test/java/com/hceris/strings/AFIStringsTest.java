@@ -16,4 +16,9 @@ public class AFIStringsTest {
 		assertTrue(AFIStrings.isRotation("abc", "cab"));
 		assertFalse(AFIStrings.isRotation("abc", "cba"));
 	}
+	
+	@Test
+	public void testReverseWords() {
+		assertEquals ("served is Lunch", AFIStrings.reverseWords("Lunch is served"));
+	}
 }
