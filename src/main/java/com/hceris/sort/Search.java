@@ -191,4 +191,32 @@ public class Search {
         T max = left_res[1].compareTo(right_res[1]) >= 0 ? left_res[1] : right_res[1];
         return (T[]) new Comparable[] { min, max };
     }
+
+    public static int[] minTriplet(int[] a, int[] b, int[] c) {
+        int i = 0;
+        int j = 0;
+        int k = 0;
+        int minThusFar = Integer.MAX_VALUE;
+        int[] triplet = new int[3];
+
+        while(i < a.length && j < b.length && k < c.length) {
+            int dist = Math.max(Math.max(Math.abs(a[i] - b[j]), Math.abs(b[j] - c[k])), Math.abs(a[i] - c[k]));
+            if(dist < minThusFar) {
+                minThusFar = dist;
+                triplet[0] = i;
+                triplet[1] = j;
+                triplet[2] = k;
+            }
+
+            int m = Math.min(Math.min(a[i], b[j]), c[k]);
+            if(m == a[i] ) {
+                i++;
+            } else if(m == b[j]) {
+                j++;
+            } else {
+                k++;
+            }
+        }
+        return triplet;
+    }
 }

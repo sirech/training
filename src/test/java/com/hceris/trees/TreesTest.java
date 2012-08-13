@@ -10,7 +10,7 @@ import java.util.Map;
 import org.junit.Test;
 
 public class TreesTest {
-	
+
 	Node<Integer> balanced = new Node<Integer>(4, 
 				new Node<Integer>(2, new Node<Integer>(1), new Node<Integer>(3)),
 				new Node<Integer>(6, new Node<Integer>(5), new Node<Integer>(7))				
@@ -94,5 +94,19 @@ public class TreesTest {
 	public void testDiameter() {
 		assertEquals(5, Trees.diameter(balanced));
 		assertEquals(6, Trees.diameter(unbalanced));
+	}
+	
+	@Test
+	public void testEquals() {
+		assertFalse(Trees.equals(balanced, unbalanced));
+		assertTrue(Trees.equals(unbalanced, unbalanced));
+	}
+	
+	@Test
+	public void testKElement() {
+		assertEquals(1, (int) Trees.kElement(balanced, 0));
+		assertEquals(4, (int) Trees.kElement(balanced, 3));
+		assertEquals(7, (int) Trees.kElement(balanced, 6));
+		assertEquals(null, Trees.kElement(balanced, 7));
 	}
 }

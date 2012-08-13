@@ -81,7 +81,32 @@ public class SequencesTest {
 	}
 	
 	@Test
+	public void testLongestContiguousPalindrome() {
+		assertEquals("tgggt", Sequences.longestContiguousPalindrome("cacaattcccatgggttgtggag"));
+		assertEquals("aba", Sequences.longestContiguousPalindrome("abacdfgdcaba"));
+	}
+	
+	@Test
+	public void testLongestStringWithoutRepetition() {
+		assertEquals("b", Sequences.longestSubstringWithoutRepetition("bbbb"));
+		assertEquals("abc", Sequences.longestSubstringWithoutRepetition("abcabb"));
+	}
+	
+	@Test
 	public void testEditDistance() {
 		assertEquals(3, Sequences.editDistance("sitting", "kitten"));
+	}
+	
+	@Test
+	public void testProductsExceptSelf() {
+		assertTrue(Arrays.equals(new int[] { 3, 5 }, Sequences.productsExceptSelf(new int[] { 5, 3 })));
+		assertTrue(Arrays.equals(new int[] { 945, 315, 189, 135, 105 }, Sequences.productsExceptSelf(new int[] { 1, 3, 5, 7, 9 })));
+	}
+	
+	@Test
+	public void testMinJumps() {
+		assertEquals(2, Sequences.minJumps(new int[] { 2, 3, 1, 1, 4 }));
+		assertEquals(-1, Sequences.minJumps(new int[] { 2, 2, 1, 0, 4 }));
+		
 	}
 }

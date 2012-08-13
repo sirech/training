@@ -48,4 +48,13 @@ public class MathTest {
 	public void test3SumClosest() {
 		assertTrue(Arrays.equals(new int[] {3, 4, 5}, Math.threeSumClosest(new int[] { -4, -1, -1, 0, 1, 2 }, 4)));
 	}
+	
+	@Test
+	public void testDivide() {
+		assertEquals(0, Math.divide(3, 5));
+		assertEquals(1, Math.divide(5, 5));
+		assertEquals(9, Math.divide(45, 5));
+		assertEquals(9, Math.divide(48, 5));
+		
+	}
 }

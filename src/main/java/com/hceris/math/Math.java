@@ -157,4 +157,18 @@ public class Math {
 
         return best;
     }
+
+    public static int divide(int a, int b) {
+        boolean positive = (a > 0 && b > 0) || (a < 0 && b < 0);
+        a = java.lang.Math.abs(a);
+        b = java.lang.Math.abs(b);
+
+        int res = 0;
+        while(a >= b) {
+            res++;
+            a -= b;
+        }
+
+        return positive ? res : -res;
+    }
 }

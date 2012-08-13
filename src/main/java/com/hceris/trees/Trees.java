@@ -98,10 +98,7 @@ public class Trees {
             return false;
         }
 
-        if(!isBST2(current.left, min, current.value)) {
-            return false;
-        }
-        return isBST2(current.right, current.value, max);
+        return isBST2(current.left, min, current.value) && isBST2(current.right, current.value, max);
     }
 
     public static Map<Character, String> huffmanTree(List<HuffmanValue> values) {
@@ -175,5 +172,47 @@ public class Trees {
         }
 
         return 1 + Math.max(height(current.left), height(current.right));
+    }
+
+    public static <T> boolean equals(Node<T> x, Node<T> y) {
+        if(x == null || y == null) {
+            return x == y;
+        }
+
+        return x.value.equals(y.value) && equals(x.left, y.left) && equals(x.right, y.right);
+    }
+
+    public static <T> T kElement(Node<T> root, int k) {
+        KElement<T> e = kElement(root, 0, k);
+        return e.value;
+    }
+
+    private static <T> KElement<T> kElement(Node<T> current, int start, int k) {
+        if(current == null) {
+            return new KElement<T>(null, start);
+        }
+
+        KElement<T> e = kElement(current.left, start, k);
+
+        if(e.value != null) {
+            return e;
+        }
+
+        if(e.count == k) {
+            return new KElement<T>(current.value, k);
+        }
+
+        return kElement(current.right, e.count + 1, k);
+    }
+    
+    private static class KElement<T> {
+        T value;
+        int count;
+
+        KElement(T value, int count) {
+            this.value = value;
+            this.count = count;
+        }
+        
     }
 }

@@ -1,6 +1,10 @@
 package com.hceris.dp;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.hceris.strings.AFIStrings;
+
 
 public class Sequences {
     private Sequences() {}
@@ -135,7 +139,62 @@ public class Sequences {
     }
     
     public static String longestPalindrome(String s) {
-    	return longestCommonSubsequence(s, new String(AFIStrings.reverse(s)));
+       return longestCommonSubsequence(s, new String(AFIStrings.reverse(s)));
+    }
+    
+    public static String longestContiguousPalindrome(String s) {
+        String longest = s.substring(0, 1);
+
+        for(int i = 0; i < s.length() - 1; i++) {
+            String p1 = expandAroundCenter(s, i, i);
+            if(p1.length() > longest.length()) {
+                longest = p1;
+            }
+
+            String p2 = expandAroundCenter(s, i, i+1);
+            if(p2.length() > longest.length()) {
+                longest = p2;
+            }
+        }
+        
+        return longest;
+    }
+
+    public static String longestSubstringWithoutRepetition(String s) {
+        int i = 0;
+        int j = 0;
+        int max = 0;
+        String longest = "";
+        Set<Character> seen = new HashSet<Character>();
+
+        while(j < s.length()) {
+            if(!seen.add(s.charAt(j))) {
+            	if(j - i > max) {
+            		max = j - i;
+            		longest = s.substring(i, j);
+            	}
+                while(s.charAt(i) != s.charAt(j)) {
+                    seen.remove(s.charAt(i));
+                    i++;
+                }
+                i++;
+            }
+            j++;
+        }
+
+        return longest;
+    }
+
+    private static String expandAroundCenter(String s, int c1, int c2) {
+        int left = c1;
+        int right = c2;
+
+        while(left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
+            left--;
+            right++;
+        }
+        
+        return s.substring(left + 1, right);
     }
 
     public static int minDistance(Iterable<String> words, String w1, String w2) {
@@ -185,5 +244,42 @@ public class Sequences {
         }
         
         return m[a.length][b.length];
+    }
+
+    public static int[] productsExceptSelf(int[] a) {
+        int[] result = new int[a.length];
+        int[] before = new int[a.length];
+        int[] after = new int[a.length];
+
+        before[0] = 1;
+        for(int i = 1; i < a.length; i++) {
+            before[i] = before[i-1] * a[i-1];
+        }
+
+        after[a.length - 1] = 1;
+        for(int i = a.length - 2; i >= 0; i--) {
+            after[i] = after[i+1] * a[i+1];
+        }
+
+        for(int i = 0; i < a.length; i++) {
+            result[i] = before[i] * after[i];
+        }
+        return result;
+    }
+
+    public static int minJumps(int[] a) {
+        int[] min = new int[a.length];
+
+        for(int i = 1; i < a.length; i++) {
+            int partial = -1;
+            for(int j = 0; j < i; j++) {
+                if(a[j] + j >= i && (partial == -1 || min[j] + 1 < partial)) {
+                    partial = min[j] + 1;
+                }
+            }
+            min[i] = partial;
+        }
+
+        return min[a.length - 1];        
     }
 }

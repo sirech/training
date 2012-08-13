@@ -69,7 +69,12 @@ public class SearchTest {
 	}
 	
 	@Test
-	public void assertMaxmin() throws Exception {
+	public void testMaxmin() throws Exception {
 		assertTrue(Arrays.equals(new Integer[] { 3, 9 }, Search.maxmin(new Integer[] { 4, 5, 6, 6, 7, 8, 9, 9, 3, 4 })));
+	}
+	
+	@Test
+	public void testMinTriplet() {
+		assertTrue(Arrays.equals(new int[] {2, 2, 2}, Search.minTriplet(new int[] {1,3,78}, new int[] {15,19,79}, new int[] {27, 29, 80})));
 	}
 }
