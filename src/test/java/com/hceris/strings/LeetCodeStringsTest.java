@@ -37,4 +37,8 @@ public class LeetCodeStringsTest {
 		assertEquals("abc", LeetCodeStrings.nextPermutation(base));
 	}
 
+	@Test
+	public void testIsScramble() throws Exception {
+		assertTrue(LeetCodeStrings.isScramble("great", "rgtae"));
+	}
 }

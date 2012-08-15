@@ -1,5 +1,7 @@
 package com.hceris.sort;
 
+import com.google.common.base.Preconditions;
+
 public class Search {
     private Search() {}
 
@@ -20,12 +22,12 @@ public class Search {
             }
         }
 
-        return -1;
+        return -(left+1);
     }
 
     public static <T extends Comparable<? super T>> int binarySearch(T[] a, T elem, int left, int right) {
         if(left > right) {
-            return -1;
+            return -(left+1);
         }
 
         int middle = (left + right) >>> 1;
@@ -55,30 +57,20 @@ public class Search {
         if(cmp == 0) {
             return middle;
         }
-
-        int left_res = -1;
+        
         if(isSorted(a, left, middle - 1)) {
-            if(cmp < 0) {
-                left_res = binarySearch(a, elem, left, middle - 1);
-            }
+        	if(cmp < 0 && elem.compareTo(a[left]) >= 0) {
+        		return binarySearch(a, elem, left, middle - 1);
+        	} else {
+        		return rotatedSearch(a, elem, middle + 1, right);
+        	}
         } else {
-            left_res = rotatedSearch(a, elem, left, middle - 1);
+            if(cmp > 0 && elem.compareTo(a[right]) <= 0) {
+        		return binarySearch(a, elem, middle + 1, right);
+        	} else {
+        		return rotatedSearch(a, elem, left, middle - 1);
+        	}
         }
-
-        if(left_res != -1) {
-            return left_res;
-        }
-
-        int right_res = -1;
-        if(isSorted(a, middle - 1, right)) {
-            if(cmp > 0) {
-                right_res = binarySearch(a, elem, middle + 1, right);
-            }
-        } else {
-            right_res = rotatedSearch(a, elem, middle + 1, right);
-        }
-
-        return right_res;
     }
 
     public static <T extends Comparable<? super T>> int rotatedMin(T[] a) {
@@ -218,5 +210,30 @@ public class Search {
             }
         }
         return triplet;
+    }
+
+    public static <T extends Comparable<? super T>> int[] searchSortedMatrix(T[][] m, T elem) {
+        int i = 0;
+        int j = m[0].length - 1;
+
+        while(i < m.length && j >= 0) {
+            int cmp = elem.compareTo(m[i][j]);
+
+            if(cmp == 0) {
+                return new int[] {i, j};
+            } else if(cmp < 0) {
+                j--;
+            } else {
+                i++;
+            }
+        }
+
+        return new int[] { -1, -1 };
+    }
+    
+    public static <T extends Comparable<? super T>> int insertionPoint(T[] a, T elem) {
+    	int pos = binarySearch(a, elem);
+    	Preconditions.checkState(pos < 0);
+    	return -(pos + 1);
     }
 }

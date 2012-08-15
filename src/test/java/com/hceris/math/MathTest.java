@@ -30,6 +30,16 @@ public class MathTest {
 	}
 	
 	@Test
+	public void test2SumNoAnswer() throws Exception {
+		assertTrue(Arrays.equals(new int[] {}, Math.twoSum(new int[] { 2, 5, 1, 9, 6, 7 }, 17)));
+	}
+	
+	@Test
+	public void test2Sum() throws Exception {
+		assertTrue(Arrays.equals(new int[] {1, 3}, Math.twoSum(new int[] { 2, 5, 1, 9, 6, 7 }, 14)));
+	}
+	
+	@Test
 	public void test3SumNoAnswer() {
 		assertTrue(Arrays.equals(new int[] {}, Math.threeSum(new int[] { -4, -1, -1, 0 })));
 	}

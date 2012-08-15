@@ -6,6 +6,7 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 
 import com.google.common.base.Joiner;
+import com.google.common.base.Preconditions;
 
 public class CCILinkedList<T> implements Iterable<T> {
 
@@ -20,6 +21,30 @@ public class CCILinkedList<T> implements Iterable<T> {
     public CCILinkedList() {
     }
 
+    @Override
+    public boolean equals(Object o) {
+    	if(!(o instanceof CCILinkedList)) {
+    		return false;
+    	}
+    	
+    	CCILinkedList<?> l = (CCILinkedList<?>) o;
+    	if(size() != l.size()) {
+    		return false;
+    	}
+    	
+    	Node<?> current = head;
+    	Node<?> other = l.head;
+    	
+    	while(current != null) {
+    		if(!current.data.equals(other.data)) {
+    			return false;
+    		}
+    		current = current.next;
+    		other = other.next;
+    	}
+    	return true;
+    }
+    
     public int size() { 
     	int n = 0;
     	for(@SuppressWarnings("unused") T data : this) {
@@ -128,6 +153,10 @@ public class CCILinkedList<T> implements Iterable<T> {
     }
 
     public T nthToLast(int n) {
+        return nthToLastNode(n).data;
+    }
+
+    private Node<T> nthToLastNode(int n) {
         Node<T> p2 = head;
         Node<T> p1 = head;
         for(int i = 0; i <= n; i++) {
@@ -138,7 +167,96 @@ public class CCILinkedList<T> implements Iterable<T> {
             p2 = p2.next;
             p1 = p1.next;
         }
-        return p1.data;
+        return p1;
+    }
+
+    public void reverse() {
+        Node<T> prev = null;
+        Node<T> current = head;
+
+        while(current != null) {
+            Node<T> next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+
+        head = prev;
+    }
+
+    public void reverse(int m, int n) {
+        Node<T> prev = null;
+        Node<T> current = head;
+
+        int i = 0;
+        while(i < m && current != null) {
+            prev = current;
+            current = current.next;
+            i++;
+        }
+
+        Preconditions.checkState(i == m);
+        Node<T> begin = prev;
+        prev = null;
+        
+        while(i <= n && current != null) {
+            Node<T> next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+            i++;
+        }
+
+        Preconditions.checkState(i == n + 1);
+        
+        if(begin == null) {
+            head.next = current;
+            head = prev;
+        } else {
+            begin.next.next = current;
+            begin.next = prev;
+        }
+    }
+
+    public void reverseCycle(int k) {
+        head = reverseCycle(head, k);
+    }
+
+    private Node<T> reverseCycle(Node<T> start, int k) {
+        if(start == null) {
+            return null;
+        }
+        
+        Node<T> current = start;
+        Node<T> prev = null;
+        int count = 0;
+
+        while(current != null && count < k) {
+            Node<T> next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+            count++;
+        }
+
+        start.next = reverseCycle(current, k);
+        return prev;        
+    }
+
+    public void rotateRight(int k) {
+        Node<T> newTail = nthToLastNode(k);
+        Node<T> newHead = newTail.next;
+        
+        Node<T> prev = null;
+        Node<T> current = newHead;
+        while(current != null) {
+            prev = current;
+            current = current.next;
+        }
+
+        prev.next = head;
+        head = newHead;
+        newTail.next = null;
     }
     
     private static class Node<T> {

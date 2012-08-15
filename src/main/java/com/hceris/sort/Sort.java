@@ -78,6 +78,30 @@ public class Sort {
 
         for(k = left; k <= rightEnd; k++) {
         	a[k] = aux[k];
-        }
+        }           
+    }
+
+    // similar to partition for quicksort which doesn't rearrange duplicated elements
+	public static void dutchFlagSort(int[] a, int p, int k) {
+		int p_index = 0;
+		int k_index = a.length - 1;
+		for (int i = 0; i <= k_index;) {
+			if (a[i] < p) {
+				swap(a, i, p_index);
+				p_index++;
+				i++;
+			} else if (a[i] >= k) {
+				swap(a, i, k_index);
+				k_index--;
+			} else {
+				i++;
+			}
+		}
+	}
+
+    public static void swap(int[] a, int i, int j){
+        int temp = a[i];
+        a[i] = a[j];
+        a[j] = temp;
     }
 }

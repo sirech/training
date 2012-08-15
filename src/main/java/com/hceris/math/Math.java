@@ -95,6 +95,22 @@ public class Math {
         }
     }
 
+    // assumption: array unsorted
+    public static int[] twoSum(int[] a, int target) {
+        Map<Integer,Integer> available = new HashMap<Integer,Integer>();
+
+        for(int i = 0; i < a.length; i++) {
+            Integer index = available.get(target - a[i]);
+            if(index != null) {
+                return new int[] { index, i };
+            }
+
+            available.put(a[i], i);
+        }
+
+        return new int[] {};
+    }
+    
     public static int[] threeSum(int[] a) {
         if(a.length < 3) {
             return new int[] {};

@@ -1,6 +1,8 @@
 package com.hceris.strings;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LeetCodeStrings {
     private LeetCodeStrings() {}
@@ -11,7 +13,7 @@ public class LeetCodeStrings {
         String carry = "";
 
         for(int i = b.length() - 1; i >= 0; i--) {
-        	String mul = multiply(a, b.charAt(i)) + carry;
+            String mul = multiply(a, b.charAt(i)) + carry;
             result = sum(result, mul);
             carry += "0";
         }
@@ -50,7 +52,7 @@ public class LeetCodeStrings {
             int digit_b = j < 0 ? 0 : toInt(b.charAt(j));
             int sum = digit_a + digit_b + carry;
             result.append(sum % 10);
-            
+
             carry = sum / 10;
             i--;
             j--;
@@ -90,5 +92,50 @@ public class LeetCodeStrings {
         char tmp = a[x];
         a[x] = a[y];
         a[y] = tmp;
+    }
+
+    public static boolean isScramble(String s1, String s2) {
+        Map<String, Boolean> hm = new HashMap<String, Boolean>();
+        return isScramble(s1, s2, hm);
+    }
+
+    private static boolean isScramble(String s1, String s2, Map<String,Boolean> hm) {
+        if (s1 == null || s2 == null)
+            return false;
+
+        if (s1.length() != s2.length())
+            return false;
+
+        if (s1.equals(s2))
+            return true;
+
+        String key1 = s1 + ":" + s2;
+        String key2 = s2 + ":" + s1;
+
+        if (hm.containsKey(key1))
+            return hm.get(key1);
+
+        if (hm.containsKey(key2))
+            return hm.get(key2);
+
+        int n = s1.length();
+        boolean ret = false;
+        for (int i = 1; i < n; i++) {
+            if(isScramble(s1.substring(0, i), s2.substring(0, i), hm)
+               && isScramble(s1.substring(i, n), s2.substring(i, n), hm)) {
+                ret = true;
+                break;
+            }
+
+
+            if (isScramble(s1.substring(0, i), s2.substring(n - i, n), hm)
+                && isScramble(s1.substring(i, n), s2.substring(0, n - i), hm)) {
+                ret = true;
+                break;
+            }
+        }
+
+        hm.put(key1, ret);
+        return ret;
     }
 }
