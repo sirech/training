@@ -127,6 +127,20 @@ public class CCILinkedList<T> implements Iterable<T> {
         }
     }
 
+    public T nthToLast(int n) {
+        Node<T> p2 = head;
+        Node<T> p1 = head;
+        for(int i = 0; i <= n; i++) {
+            p2 = p2.next;
+        }
+
+        while(p2 != null) {
+            p2 = p2.next;
+            p1 = p1.next;
+        }
+        return p1.data;
+    }
+    
     private static class Node<T> {
         T data;
         Node<T> next;

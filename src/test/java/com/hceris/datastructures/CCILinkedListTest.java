@@ -46,4 +46,10 @@ public class CCILinkedListTest {
 		assertEquals(5, l.size());
 	}
 
+	@Test
+	public void testNthToLast() {
+		assertEquals("1", l.nthToLast(0));
+		assertEquals("1", l.nthToLast(6));
+		assertEquals("2", l.nthToLast(3));
+	}
 }

@@ -57,4 +57,12 @@ public class MathTest {
 		assertEquals(9, Math.divide(48, 5));
 		
 	}
+	
+	@Test
+	public void testPow() {
+		assertEquals(1024, Math.pow(2, 10));
+		assertEquals(1, Math.pow(3, 0));
+		assertEquals(3, Math.pow(3, 1));
+		assertEquals(1024 * 1024, Math.pow(2, 20));
+	}
 }

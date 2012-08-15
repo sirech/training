@@ -171,4 +171,28 @@ public class Math {
 
         return positive ? res : -res;
     }
+
+    public static long pow(long x, int n) {
+        if(n == 0) {
+            return 1;
+        }
+        if(x == 0 || n == 1) {
+            return x;
+        }
+        
+        long result = 1;
+        boolean isNeg = n < 0;
+        n = java.lang.Math.abs(n);
+        
+        while(n > 0) {
+          if((n & 1) != 0) {
+             result *= x;
+             n--;
+          }    
+          x *= x;
+          n /= 2;
+        }
+        
+        return isNeg ? 1 / result : result;
+    }
 }
