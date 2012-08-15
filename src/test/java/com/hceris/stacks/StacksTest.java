@@ -20,4 +20,8 @@ public class StacksTest {
 		}
 	}
 
+	@Test
+	public void testSlidingWindowMax() throws Exception {
+		assertTrue(Arrays.equals(new Integer[] { 3, 3, 4, 5, 5, 5, 6 } , Stacks.slidingWindowMax(new Integer[] { 1, 2, 3, 1, 4, 5, 2, 3, 6 }, 3)));
+	}
 }

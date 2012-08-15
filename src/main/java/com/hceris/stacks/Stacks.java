@@ -21,5 +21,31 @@ public class Stacks {
             stack.push(tmp.pop());
         }
     }
+    
+    public static <T extends Comparable<? super T>> T[] slidingWindowMax(T[] a, int k) {
+    	@SuppressWarnings("unchecked")
+		T[] max = (T[]) new Comparable[a.length - k + 1];
+    	Deque<Integer> q = new ArrayDeque<Integer>();
+    	
+    	for (int i = 0; i < k; i++) {
+			while(!q.isEmpty() && a[i].compareTo(a[q.getLast()]) >= 0) {
+				q.removeLast();
+			}
+			q.addLast(i);			
+		}
+    	
+    	for(int i = k; i < a.length; i++) {
+    		max[i - k] = a[q.getFirst()];
+    		while(!q.isEmpty() && a[i].compareTo(a[q.getLast()]) >= 0) {
+				q.removeLast();
+			}
+    		while(!q.isEmpty() && q.getFirst() <= i - k) {
+    			q.removeFirst();
+    		}
+    		q.addLast(i);    		
+    	}
+    	max[a.length - k] = a[q.getFirst()];    	
+    	return max;
+    }
         
 }
