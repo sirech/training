@@ -64,4 +64,14 @@ public class BytesTest {
 		assertEquals(3, Bytes.sum(4, -1));
 		assertEquals(567, Bytes.sum(323, 244));		
 	}
+	
+	@Test
+	public void testAppearsOnceRestTwice() throws Exception {
+		assertEquals(6, Bytes.appearsOnceRestTwice(new int[] { 3, 2, 1, 1, 2, 3, 4, 5, 6, 5, 4 }));
+	}
+	
+	@Test
+	public void testAppearsOnceRestThrice() throws Exception {
+		assertEquals(6, Bytes.appearsOnceRestThrice(new int[] { 3, 2, 1, 2, 1, 2, 1, 3, 4, 4, 3, 5, 6, 5, 4, 5 }));
+	}
 }

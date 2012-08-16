@@ -109,4 +109,14 @@ public class SequencesTest {
 		assertEquals(-1, Sequences.minJumps(new int[] { 2, 2, 1, 0, 4 }));
 		
 	}
+	
+	@Test
+	public void testSubarrayWithSumNoAnswer() throws Exception {
+		assertTrue(Arrays.equals(new int[] {}, Sequences.subarrayWithSum(new int[] { 3, 1, 5, 4, 6, 7, 2 }, 18)));
+	}
+	
+	@Test
+	public void testSubarrayWithSum() throws Exception {
+		assertTrue(Arrays.equals(new int[] {3, 5}, Sequences.subarrayWithSum(new int[] { 3, 1, 5, 4, 6, 7, 2 }, 17)));
+	}
 }

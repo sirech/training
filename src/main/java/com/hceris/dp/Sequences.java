@@ -282,4 +282,28 @@ public class Sequences {
 
         return min[a.length - 1];        
     }
+    
+    // assumption: every element >= 0
+    public static int[] subarrayWithSum(int[] a, int target) {
+    	int left = 0;
+    	int right = 0;
+    	int sum = a[0];
+    	
+    	while(right < a.length && sum != target) {
+    		if(sum < target) {
+    			right++;
+    			if(right < a.length) {
+    				sum += a[right];
+    			}
+    		} else {
+    			sum -= a[left++];
+    		}
+    	}
+    	
+    	if(sum == target) {
+    		return new int[] { left, right };
+    	} else {
+    		return new int[] {};
+    	}
+    }
 }

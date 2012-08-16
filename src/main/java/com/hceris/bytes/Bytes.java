@@ -59,5 +59,28 @@ public class Bytes {
             b = carry;
         }
         return a;
-    }    
+    }  
+    
+    // assumption: each element appears twice except one
+    public static int appearsOnceRestTwice(int[] a) {
+    	int result = a[0];
+    	for(int i = 1; i < a.length; i++) {
+    		result ^= a[i];
+    	}
+    	return result;
+    }
+    
+    // assumption: each element appears thrice except one
+    public static int appearsOnceRestThrice(int[] a) {
+    	int ones = 0;
+    	int twos = 0;
+    	for(int i = 0; i < a.length; i++) {
+    		twos |= ones & a[i];
+    		ones ^= a[i];
+    		int not_three = ~(ones & twos);
+    		ones &= not_three;
+    		twos &= not_three;
+    	}
+    	return ones;    		
+    }
 }
