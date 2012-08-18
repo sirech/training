@@ -2,6 +2,8 @@ package com.hceris.strings;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Test;
 
 
@@ -48,5 +50,17 @@ public class CCIStringsTest {
 		assertEquals(1, f.total);
 		assertEquals(1, f.partial);
 	
+	}
+	
+	@Test
+	public void testPermutations() throws Exception {
+		List<String> permutations = CCIStrings.permutations("abc");
+		assertEquals("[abc, bac, bca, acb, cab, cba]", permutations.toString());
+	}
+	
+	@Test
+	public void testPermutations2() throws Exception {
+		List<String> permutations = CCIStrings.permutations2("abc");
+		assertEquals("[abc, acb, bac, bca, cba, cab]", permutations.toString());
 	}
 }

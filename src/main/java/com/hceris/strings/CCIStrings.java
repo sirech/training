@@ -1,6 +1,8 @@
 package com.hceris.strings;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import com.google.common.base.Preconditions;
 
@@ -162,5 +164,51 @@ public class CCIStrings {
         }
 
         return new Frequencies(complete, partialsCount);
+    }
+    
+    public static List<String> permutations(String s) {
+        if(s.length() == 0) {
+            return Arrays.asList("");
+        }
+
+        char first = s.charAt(0);
+        List<String> perm = permutations(s.substring(1));
+        List<String> result = new ArrayList<String>();
+
+        for(String elem : perm) {
+            for(int i = 0; i <= elem.length(); i++) {
+                result.add(insertCharAt(first, i, elem));
+            }
+        }
+        return result;
+    }
+
+    private static String insertCharAt(char c, int i, String elem) {
+        return elem.substring(0, i) + c + elem.substring(i);
+    }
+
+    public static List<String> permutations2(String s) {
+        return permutations2(s.toCharArray(), 0);
+    }
+
+    private static List<String> permutations2(char[] chars, int start) {
+        if(chars.length - 1 == start) {
+            return Arrays.asList(new String(chars));
+        }
+
+        List<String> result = new ArrayList<String>();
+        for(int i = start; i < chars.length; i++) {
+            swap(chars, i, start);
+            result.addAll(permutations2(chars, start + 1));
+            swap(chars, i, start);
+        }
+
+        return result;
+    }
+
+    private static void swap(char[] a, int x, int y) {
+        char tmp = a[x];
+        a[x] = a[y];
+        a[y] = tmp;
     }
 }

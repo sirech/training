@@ -1,8 +1,6 @@
 package com.hceris.dp;
 
-import static org.junit.Assert.*;
-
-import java.util.List;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
@@ -32,12 +30,5 @@ public class CCIDPTest {
 	@Test
 	public void testMagicIndexDuplTrue() throws Exception {
 		assertEquals(7, CCIDP.magicIndexDupl(new int[] { 1, 2, 3, 4, 5, 6, 7, 7 }));		
-	}
-	
-	
-	@Test
-	public void testPermutations() throws Exception {
-		List<String> permutations = CCIDP.permutations("abc");
-		assertEquals("[abc, bac, bca, acb, cab, cba]", permutations.toString());
 	}
 }

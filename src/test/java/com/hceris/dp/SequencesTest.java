@@ -116,7 +116,32 @@ public class SequencesTest {
 	}
 	
 	@Test
+	public void testSubarrayWithSumWholeArray() throws Exception {
+		assertTrue(Arrays.equals(new int[] {0, 6}, Sequences.subarrayWithSum(new int[] { 3, 1, 5, 4, 6, 7, 2 }, 28)));
+	}
+	
+	@Test
 	public void testSubarrayWithSum() throws Exception {
 		assertTrue(Arrays.equals(new int[] {3, 5}, Sequences.subarrayWithSum(new int[] { 3, 1, 5, 4, 6, 7, 2 }, 17)));
+	}
+	
+	@Test
+	public void testgeneralSubarrayWithSumNoAnswer() throws Exception {
+		assertTrue(Arrays.equals(new int[] {}, Sequences.generalSubarrayWithSum(new int[] {1, 3, -4, 8, -1, 6} , 10)));
+	}
+	
+	@Test
+	public void testgeneralSubarrayWithSumOnlyPositives() throws Exception {
+		assertTrue(Arrays.equals(new int[] {3, 5}, Sequences.generalSubarrayWithSum(new int[] { 3, 1, 5, 4, 6, 7, 2 }, 17)));
+	}
+	
+	@Test
+	public void testgeneralSubarrayWithSumWholeArray() throws Exception {
+		assertTrue(Arrays.equals(new int[] {0, 5}, Sequences.generalSubarrayWithSum(new int[] { 3, 1, 5, 4, 6, 7 }, 26)));
+	}
+	
+	@Test
+	public void testgeneralSubarrayWithSum() throws Exception {
+		assertTrue(Arrays.equals(new int[] {2, 5}, Sequences.generalSubarrayWithSum(new int[] {1, 3, -4, 8, -1, 6} , 9)));
 	}
 }

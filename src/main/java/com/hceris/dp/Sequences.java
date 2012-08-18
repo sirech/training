@@ -1,6 +1,8 @@
 package com.hceris.dp;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import com.hceris.strings.AFIStrings;
@@ -305,5 +307,28 @@ public class Sequences {
     	} else {
     		return new int[] {};
     	}
+    }
+
+    public static int[] generalSubarrayWithSum(int[] a, int target) {
+        int[] sumThusFar = new int[a.length];
+        Map<Integer,Integer> inverse = new HashMap<Integer,Integer>();
+
+        for(int i = 0; i < a.length; i++) {
+            sumThusFar[i] = a[i] + (i > 0 ? sumThusFar[i-1] : 0);
+            inverse.put(sumThusFar[i], i);
+
+            if(sumThusFar[i] == target) {
+                return new int[] { 0, i };
+            }
+        }
+
+        for(int i = 1; i < a.length; i++) {
+            Integer rest = inverse.get(sumThusFar[i] - target);
+            if(rest != null) {
+                return new int[] { rest + 1, i };
+            }
+        }
+
+        return new int[] {};
     }
 }
