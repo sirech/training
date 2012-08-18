@@ -1,5 +1,7 @@
 package com.hceris.sort;
 
+import static com.hceris.util.Utils.swap;
+
 public class Sort {
     private Sort() {}
 
@@ -30,12 +32,6 @@ public class Sort {
 
     private static <T extends Comparable<? super T>> int pivot(T[] a, int left, int right) {
         return left;
-    }
-
-    private static <T> void swap(T[] a, int x, int y) {
-        T tmp = a[x];
-        a[x] = a[y];
-        a[y] = tmp;
     }
 
     public static <T extends Comparable<? super T>> void mergeSort(T[] a) {
@@ -98,10 +94,4 @@ public class Sort {
 			}
 		}
 	}
-
-    public static void swap(int[] a, int i, int j){
-        int temp = a[i];
-        a[i] = a[j];
-        a[j] = temp;
-    }
 }

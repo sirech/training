@@ -1,4 +1,7 @@
 package com.hceris.datastructures;
+
+import static com.hceris.util.Utils.swap;
+
 import java.util.Collection;
 import java.util.NoSuchElementException;
 
@@ -55,12 +58,6 @@ public class MinHeap<T extends Comparable<? super T>> {
         if(size == 0) {
             throw new NoSuchElementException();
         }
-    }
-
-    private void swap(T[] a, int i, int j) {
-        T tmp = a[i];
-        a[i] = a[j];
-        a[j] = tmp;
     }
 
     private int parent(int i) { return (i - 1) / 2; }

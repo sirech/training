@@ -1,5 +1,7 @@
 package com.hceris.datastructures;
 
+import static com.hceris.util.Utils.swap;
+
 import java.util.Iterator;
 import java.util.Random;
 
@@ -80,11 +82,5 @@ public class Lists {
             result[i] = a[i];
         }
         return result;
-    }
-
-    private static <T> void swap(T[] a, int x, int y) {
-        T tmp = a[x];
-        a[x] = a[y];
-        a[y] = tmp;
-    }
+    }    
 }

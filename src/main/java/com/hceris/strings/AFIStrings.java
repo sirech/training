@@ -1,5 +1,7 @@
 package com.hceris.strings;
 
+import static com.hceris.util.Utils.swap;
+
 public class AFIStrings {
     private AFIStrings() {}
 
@@ -23,12 +25,6 @@ public class AFIStrings {
         while(left < right) {
             swap(s, left++, right--);
         }
-    }
-
-    public static void swap(char[] s, int x, int y) {
-        char tmp = s[x];
-        s[x] = s[y];
-        s[y] = tmp;
     }
 
     public static boolean isRotation(String s, String r) {

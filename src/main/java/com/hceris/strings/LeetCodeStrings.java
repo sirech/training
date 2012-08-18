@@ -1,5 +1,7 @@
 package com.hceris.strings;
 
+import static com.hceris.util.Utils.swap;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -86,12 +88,6 @@ public class LeetCodeStrings {
         swap(chars, k, l);
         AFIStrings.reverse(chars, k+1, chars.length - 1);
         return new String(chars);
-    }
-
-    private static void swap(char[] a, int x, int y) {
-        char tmp = a[x];
-        a[x] = a[y];
-        a[y] = tmp;
     }
 
     public static boolean isScramble(String s1, String s2) {

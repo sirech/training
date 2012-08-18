@@ -1,5 +1,7 @@
 package com.hceris.strings;
 
+import static com.hceris.util.Utils.swap;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -204,11 +206,5 @@ public class CCIStrings {
         }
 
         return result;
-    }
-
-    private static void swap(char[] a, int x, int y) {
-        char tmp = a[x];
-        a[x] = a[y];
-        a[y] = tmp;
     }
 }
