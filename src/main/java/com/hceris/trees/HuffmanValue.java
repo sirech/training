@@ -1,6 +1,6 @@
 package com.hceris.trees;
 
-public class HuffmanValue implements Comparable<HuffmanValue> {
+class HuffmanValue implements Comparable<HuffmanValue> {
     private final Character c;
     private final double frequency;
 

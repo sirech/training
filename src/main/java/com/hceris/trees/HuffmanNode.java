@@ -1,6 +1,6 @@
 package com.hceris.trees;
 
-public class HuffmanNode extends Node<HuffmanValue> implements Comparable<HuffmanNode> {
+class HuffmanNode extends Node<HuffmanValue> implements Comparable<HuffmanNode> {
 
     HuffmanNode(HuffmanValue value, HuffmanNode left, HuffmanNode right) {
         super(value, left, right);
