@@ -84,6 +84,7 @@ public class Math {
         return new int[] {};
     }
     
+    // assumption: array unsorted
     public static int[] threeSum(int[] a) {
         if(a.length < 3) {
             return new int[] {};
