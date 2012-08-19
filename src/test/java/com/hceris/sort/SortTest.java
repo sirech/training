@@ -30,4 +30,10 @@ public class SortTest {
 		assertTrue(Arrays.equals(new int[] { 0, 0, 0, 1, 1, 1, 2, 2, 2 }, a));
 	}
 
+	@Test
+	public void testCountInversions() throws Exception {
+		assertEquals(0, Sort.countInversions(sorted));
+		assertEquals(3, Sort.countInversions(new Integer[] { 3, 2, 1 }));
+		assertEquals(21, Sort.countInversions(a));
+	}
 }

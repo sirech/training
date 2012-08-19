@@ -94,4 +94,51 @@ public class Sort {
 			}
 		}
 	}
+
+
+    @SuppressWarnings("unchecked")
+	public static <T extends Comparable<? super T>> int countInversions(T[] a) {
+        return countInversions(a, (T[]) new Comparable[a.length], 0, a.length - 1);
+    }
+
+    private static <T extends Comparable<? super T>> int countInversions(T[] a, T[] tmp, int left, int right) {
+        if(left >= right) { return 0; }
+
+        int middle = (left + right) >>> 1;
+        int inversions = countInversions(a, tmp, left, middle);
+        inversions += countInversions(a, tmp, middle + 1, right);
+
+        inversions += mergeAndCountInversions(a, tmp, left, middle, right);
+        return inversions;
+    }
+
+    private static <T extends Comparable<? super T>> int mergeAndCountInversions(T[] a, T[] tmp, int left, int leftEnd, int right) {
+        int inversions = 0;
+        int i = left;
+        int j = leftEnd + 1;
+        int k = left;
+
+        while(i <= leftEnd && j <= right) {
+            if(a[i].compareTo(a[j]) <= 0) {
+                tmp[k++] = a[i++];
+            } else {
+                inversions += (leftEnd - i + 1);
+                tmp[k++] = a[j++];
+            }
+        }
+
+        while(i <= leftEnd) {
+            tmp[k++] = a[i++];
+        }
+
+        while(j <= right) {
+            tmp[k++] = a[j++];
+        }
+
+        for(k = left; k <= right; k++) {
+            a[k] = tmp[k];
+        }
+
+        return inversions;
+    }
 }

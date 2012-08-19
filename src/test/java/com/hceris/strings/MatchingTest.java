@@ -48,4 +48,10 @@ public class MatchingTest {
 	public void testMinimumContainingSubstring() throws Exception {
 		assertEquals("BANC", Matching.minimumContainingSubstring("ADOBECODEBANC", "ABC"));		
 	}
+	
+	@Test
+	public void testRemove() throws Exception {
+		assertEquals("flyingmonster", Matching.remove("theflyingthemonsterthe", "the"));
+		assertEquals("abaaaa", Matching.remove("aababaaaabaa", "aba"));
+	}
 }

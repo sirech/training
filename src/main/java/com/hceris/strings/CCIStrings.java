@@ -214,4 +214,25 @@ public class CCIStrings {
 
         return result;
     }
+
+    public static List<String> interleave(String s1, String s2) {
+        List<String> combinations = new ArrayList<String>();
+        interleave(s1, s2, "", combinations);
+        return combinations;
+    }
+
+    private static void interleave(String s1, String s2, String current, List<String> combinations) {
+        if(s1.length() == 0 && s2.length() == 0) {
+            combinations.add(current);
+            return;
+        }
+
+        if(s1.length() > 0) {
+            interleave(s1.substring(1), s2, current + s1.charAt(0), combinations);
+        }
+
+        if(s2.length() > 0) {
+            interleave(s1, s2.substring(1), current + s2.charAt(0), combinations);
+        }
+    }
 }

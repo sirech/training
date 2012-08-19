@@ -1,6 +1,8 @@
 package com.hceris.strings;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -68,5 +70,10 @@ public class CCIStringsTest {
 	public void testPermutations2WithDuplicates() throws Exception {
 		List<String> permutations = CCIStrings.permutations2("abbc");
 		assertEquals("[abbc, abcb, acbb, babc, bacb, bbac, bbca, bcba, bcab, cbba, cbab, cabb]", permutations.toString());
+	}
+	
+	@Test
+	public void testInterleave() throws Exception {
+		assertEquals("[ABCD, ACBD, ACDB, CABD, CADB, CDAB]", CCIStrings.interleave("AB", "CD").toString());		
 	}
 }

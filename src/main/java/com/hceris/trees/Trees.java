@@ -1,5 +1,7 @@
 package com.hceris.trees;
 
+import static com.hceris.util.Utils.swap;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -10,6 +12,7 @@ import java.util.Map;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Collections2;
+import com.google.common.collect.Lists;
 import com.hceris.datastructures.MinHeap;
 
 public class Trees {
@@ -41,6 +44,7 @@ public class Trees {
         return balanced(root) != -1;
     }
 
+    // assumption: array sorted
     public static <T extends Comparable<? super T>> Node<T> toTree(T[] a, int start, int end) {
         if(end < start) {
             return null;
@@ -59,6 +63,29 @@ public class Trees {
         return toTree(a, 0, a.length - 1);
     }
 
+    // assumption: array comes from preorder traversal
+    public static <T extends Comparable<? super T>> Node<T> toTreeFromPreorder(T[] a) {
+        LinkedList<Node<T>> stack = new LinkedList<Node<T>>();
+        Node<T> root = new Node<T>(a[0]);
+        stack.addFirst(root);
+
+        for(int i = 1; i < a.length; i++) {
+            Node<T> node = new Node<T>(a[i]);
+            if(a[i].compareTo(stack.getFirst().value) <= 0) {
+                stack.getFirst().left = node;
+            } else {
+                Node<T> parent = null;
+                while(!stack.isEmpty() && a[i].compareTo(stack.getFirst().value) > 0) {
+                    parent = stack.removeFirst();
+                }
+                parent.right = node;
+            }
+            stack.addFirst(node);
+        }
+
+        return root;
+    }
+    
     public static <T> List<T> inOrder(Node<T> root) {
         List<T> result = new ArrayList<T>();
         inOrder(root, result);
@@ -69,7 +96,7 @@ public class Trees {
         if(current == null) {
             return;
         }
-        
+
         inOrder(current.left, result);
         result.add(current.value);
         inOrder(current.right, result);
@@ -85,14 +112,41 @@ public class Trees {
                 stack.addFirst(current);
                 current = current.left;
             }
-                
+
             if(stack.isEmpty()){ break; }
-            
+
             current = stack.removeFirst();
             result.add(current.value);
             current = current.right;
-            
+
         }
+        return result;
+    }
+
+    public static <T> List<T> inOrderMorris(Node<T> root) {
+        List<T> result = new ArrayList<T>();
+
+        Node<T> current = root;
+        Node<T> prev = null;
+
+        while(current != null) {
+            if(current.left == null) {
+                result.add(current.value);
+                current = current.right;
+            } else {
+                for (prev = current.left; prev.right != null && prev.right != current; prev = prev.right) ;
+
+                if (prev.right == null) {
+                    prev.right = current;
+                    current = current.left;
+                } else {
+                    prev.right = null;
+                    result.add(current.value);
+                    current = current.right;
+                }
+            }
+        }
+
         return result;
     }
 
@@ -104,7 +158,7 @@ public class Trees {
 
         Node<T> current = r1;
         Node<T> current2 = r2;
-                
+
         while(true) {
             while(current != null) {
                 s1.addFirst(current);
@@ -117,29 +171,56 @@ public class Trees {
             }
 
             if(s1.isEmpty() && s2.isEmpty()) {
-            	break;
+                break;
             } else if(!s1.isEmpty() && s2.isEmpty()) {
-            	current = s1.removeFirst();
-            	result.add(current.value);
-            	current = current.right;
+                current = s1.removeFirst();
+                result.add(current.value);
+                current = current.right;
             } else if(s1.isEmpty() && !s2.isEmpty()) {
-            	current2 = s2.removeFirst();
-            	result.add(current2.value);
-            	current2 = current2.right;
+                current2 = s2.removeFirst();
+                result.add(current2.value);
+                current2 = current2.right;
             } else {
-            	if(s1.getFirst().value.compareTo(s2.getFirst().value) <= 0) {
-            		current = s1.removeFirst();
-            		result.add(current.value);
-            		current = current.right;
-            	} else {
-            		current2 = s2.removeFirst();
-            		result.add(current2.value);
-            		current2 = current2.right;
-            	}
-            }            
+                if(s1.getFirst().value.compareTo(s2.getFirst().value) <= 0) {
+                    current = s1.removeFirst();
+                    result.add(current.value);
+                    current = current.right;
+                } else {
+                    current2 = s2.removeFirst();
+                    result.add(current2.value);
+                    current2 = current2.right;
+                }
+            }
         }
         return result;
-    }    
+    }
+
+    public static <T> List<T> preOrderMorris(Node<T> root) {
+        List<T> result = new ArrayList<T>();
+
+        Node<T> current = root;
+        Node<T> prev = null;
+
+        while(current != null) {
+            if(current.left == null) {
+                result.add(current.value);
+                current = current.right;
+            } else {
+                for (prev = current.left; prev.right != null && prev.right != current; prev = prev.right) ;
+
+                if (prev.right == null) {
+                    result.add(current.value);
+                    prev.right = current;
+                    current = current.left;
+                } else {
+                    prev.right = null;
+                    current = current.right;
+                }
+            }
+        }
+
+        return result;
+    }
 
     public static <T extends Comparable<? super T>> boolean isBST(Node<T> root) {
         List<T> elements = inOrder(root);
@@ -173,8 +254,8 @@ public class Trees {
                 public HuffmanNode apply(HuffmanValue value) {
                     return new HuffmanNode(value);
                 }
-            });        
-        MinHeap<HuffmanNode> heap = new MinHeap<HuffmanNode>(nodes);
+            });
+        MinHeap<HuffmanNode> heap = new MinHeap<HuffmanNode>(Lists.newArrayList(nodes));
 
         while(heap.size() > 1) {
             HuffmanNode v1 = heap.poll();
@@ -206,7 +287,7 @@ public class Trees {
         if(root == null) {
             return;
         }
-        
+
         addToN(root, currentLevel, result);
         levels(root.left, currentLevel + 1, result);
         levels(root.right, currentLevel + 1, result);
@@ -271,7 +352,7 @@ public class Trees {
 
         return kElement(current.right, e.count + 1, k);
     }
-    
+
     private static class KElement<T> {
         T value;
         int count;
@@ -280,7 +361,7 @@ public class Trees {
             this.value = value;
             this.count = count;
         }
-        
+
     }
 
     public static <T> int numberOfTrees(List<T> inOrder) {
@@ -304,7 +385,46 @@ public class Trees {
             sum += numberOfTrees(inOrder, first, i-1, cache) * numberOfTrees(inOrder, i+1, last, cache);
         }
 
-        cache.put(key, sum);        
+        cache.put(key, sum);
         return sum;
+    }
+
+    static class Cell {
+        final int i;
+        final int j;
+
+        Cell(int i, int j) {
+            this.i = i;
+            this.j = j;
+        }
+    }
+
+    public static Node<Cell> bstAndHeap(Cell[] a) {
+        return bstAndHeap(a, 0, a.length - 1);
+    }
+    
+    private static Node<Cell> bstAndHeap(Cell[] a, int left, int right) {
+        if(left > right) {
+            return null;
+        }
+
+        int root = 0;
+        for(int i = 1; i < a.length; i++) {
+            if(a[i].j > a[root].j) {
+                root = i;
+            }
+        }
+
+        swap(a, left, root);
+        int middle = 0;
+
+        for(int i = 1; i < a.length; i++) {
+            if(a[i].i <= a[left].i) {
+                swap(a, i, ++middle);
+            }
+        }
+        swap(a, left, middle);
+
+        return new Node<Cell>(a[middle], bstAndHeap(a, left, middle - 1), bstAndHeap(a, middle + 1, right));
     }
 }

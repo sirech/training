@@ -1,5 +1,7 @@
 package com.hceris.strings;
 
+import java.util.Arrays;
+
 import com.google.common.base.Preconditions;
 
 public class Matching {
@@ -35,15 +37,15 @@ public class Matching {
     }
 
     public static int kmp(String s, String p) {
-        return kmp(Preconditions.checkNotNull(s.toCharArray()), Preconditions.checkNotNull(p.toCharArray()));
+        return kmp(Preconditions.checkNotNull(s.toCharArray()), Preconditions.checkNotNull(p.toCharArray()), 0, s.length() - 1);
     }
     
-    public static int kmp(char[] s, char[] p) {
+    public static int kmp(char[] s, char[] p, int start, int end) {
         int[] t = prekmp(p);
-        int i = 0;
+        int i = start;
         int m = 0;
 
-        while(i + m < s.length) {
+        while(i + m <= end) {
             if(s[i + m] == p[m]) {
                 if(m == p.length - 1) {
                     return i;
@@ -121,5 +123,28 @@ public class Matching {
         }
 
         return window.length == 2 ? s.substring(window[0], window[1] + 1) : null;
+    }
+    
+    public static String remove(String s, String p) {
+    	return remove(s.toCharArray(), p.toCharArray());
+    }
+    
+    private static String remove(char[] s, char[] p) {
+    	int start = 0;
+    	int end = s.length - 1;
+    	while(start <= end) {
+    		start = kmp(s,p, start, end);
+    		
+    		if(start == -1) {
+    			break;
+    		}
+    		
+    		for(int i = start; i <= end - p.length; i++) {
+    			s[i] = s[i + p.length];
+    		}
+    		end -= p.length;
+    	}
+    	
+    	return new String(s, 0, end + 1);
     }
 }

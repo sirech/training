@@ -9,6 +9,8 @@ import java.util.Map;
 
 import org.junit.Test;
 
+import com.hceris.trees.Trees.Cell;
+
 public class TreesTest {
 
 	Node<Integer> balanced = new Node<Integer>(4, 
@@ -44,6 +46,17 @@ public class TreesTest {
 	}
 	
 	@Test
+	public void testToTreeFromPreorder() {
+		Integer[] a = new Integer[] { 3, 1, 2, 4, 5 };
+		Node<Integer> tree = Trees.toTreeFromPreorder(a);
+		assertEquals(3, (int) tree.value);
+		assertEquals(1, (int) tree.left.value);
+		assertEquals(2, (int) tree.left.right.value);
+		assertEquals(4, (int) tree.right.value);
+		assertEquals(5, (int) tree.right.right.value);		
+	}
+	
+	@Test
 	public void testInOrder() throws Exception {
 		assertEquals(Arrays.asList(1, 2, 3, 4, 5, 6, 7), Trees.inOrder(balanced));
 	}
@@ -54,11 +67,21 @@ public class TreesTest {
 	}
 	
 	@Test
+	public void testInOrderMorris() throws Exception {
+		assertEquals(Arrays.asList(1, 2, 3, 4, 5, 6, 7), Trees.inOrderMorris(balanced));
+	}
+	
+	@Test
 	public void testInOrderIterativeMultiple() throws Exception {
 		assertEquals(Arrays.asList(1, 1, 2, 3, 3, 4, 4, 5, 5, 6, 7, 7, 8, 9), Trees.inOrderIterative(balanced, new Node<Integer>(5,
 				new Node<Integer>(3, new Node<Integer>(1), new Node<Integer>(4)),
 				new Node<Integer>(8, new Node<Integer>(7), new Node<Integer>(9))				
 				)));
+	}
+	
+	@Test
+	public void testPreOrderMorris() throws Exception {
+		assertEquals(Arrays.asList(4, 2, 1, 3, 6, 5, 7	), Trees.preOrderMorris(balanced));
 	}
 	
 	@Test
@@ -133,5 +156,15 @@ public class TreesTest {
 		assertEquals(1, Trees.numberOfTrees(Arrays.asList(1)));
 		assertEquals(5, Trees.numberOfTrees(Arrays.asList(1, 2, 3)));
 		assertEquals(132, Trees.numberOfTrees(Arrays.asList(1, 2, 3, 4, 5, 6)));
+	}
+	
+	public void testtestBstAndHeap() throws Exception {
+		Cell[] a = new Cell[] { new Cell(3,7), new Cell(2,6), new Cell(5,5), new Cell(1,4), new Cell(4,3) };
+		Node<Cell> root = Trees.bstAndHeap(a);
+		assertEquals(root, a[0]);
+		assertEquals(root.left, a[1]);
+		assertEquals(root.left.left, a[3]);
+		assertEquals(root.right, a[2]);
+		assertEquals(root.left, a[4]);		
 	}
 }
