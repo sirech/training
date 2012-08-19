@@ -1,7 +1,8 @@
 package com.hceris.trees;
 
 class Node<T> {
-    T value;
+    
+	T value;
     Node<T> left;
     Node<T> right;
 
@@ -14,4 +15,10 @@ class Node<T> {
     Node(T value) {
         this(value, null, null);
     }
+    
+    @Override
+	public String toString() {
+		return "Node [value=" + value + ", left=" + left + ", right=" + right
+				+ "]";
+	}
 }

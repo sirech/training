@@ -12,8 +12,8 @@ public class HuffmanValue implements Comparable<HuffmanValue> {
         this.c = c;
         this.frequency = frequency;
     }
-
-    public int compareTo(HuffmanValue v) {
+    
+	public int compareTo(HuffmanValue v) {
         return Double.compare(frequency, v.frequency);
     }
 
@@ -24,4 +24,9 @@ public class HuffmanValue implements Comparable<HuffmanValue> {
     public HuffmanValue combine(HuffmanValue v) {
         return new HuffmanValue(frequency + v.frequency);
     }
+    
+    @Override
+	public String toString() {
+		return "HuffmanValue [c=" + c + ", frequency=" + frequency + "]";
+	} 
 }
