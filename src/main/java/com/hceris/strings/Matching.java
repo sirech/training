@@ -82,4 +82,44 @@ public class Matching {
 
         return t;
     }
+
+    public static String minimumContainingSubstring(String s, String p) {
+        int[] balance = new int[256];
+
+        for(int i = 0; i < p.length(); i++) {
+            balance[(int) p.charAt(i)]--;
+        }
+
+        int count = 0;
+        int[] window = new int[] {};
+        int windowLength = Integer.MAX_VALUE;
+
+        for(int left = 0, right = 0; right < s.length(); right++) {
+            char current = s.charAt(right);
+            balance[(int)current]++;
+
+            if(balance[(int)current] == 0) {
+                count++;
+
+                if(count == p.length()) {
+                    while(left <= right && balance[(int)s.charAt(left)] > 0) {
+                        balance[(int)s.charAt(left)]--;
+                        left++;
+                    }
+
+                    int newWindow = right - left + 1;
+                    if(newWindow < windowLength) {
+                        windowLength = newWindow;
+                        window = new int[] { left, right };
+                    }
+
+                    balance[(int)s.charAt(left)]--;
+                    left++;
+                    count--;
+                }
+            }
+        }
+
+        return window.length == 2 ? s.substring(window[0], window[1] + 1) : null;
+    }
 }

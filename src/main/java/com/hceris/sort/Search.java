@@ -1,6 +1,13 @@
 package com.hceris.sort;
 
+import static com.hceris.util.Utils.swap;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
+import com.hceris.datastructures.MinHeap;
 
 public class Search {
     private Search() {}
@@ -236,4 +243,164 @@ public class Search {
     	Preconditions.checkState(pos < 0);
     	return -(pos + 1);
     }
+
+    // assumptions: array not sorted, modifying it is acceptable
+    public static <T extends Comparable<? super T>> T nthElement(T[] a, int k) {
+    	int left = 0;
+    	int right = a.length - 1;
+    	
+    	while(left <= right) {
+    		swap(a, left, pivot(a, left, right));
+    		int middle = left;
+    		
+    		for(int i = left + 1; i <= right; i++) {
+    			if(a[i].compareTo(a[left]) <= 0) {
+    				swap(a, i, ++middle);
+    			}
+    		}
+    		swap(a, left, middle);
+    		
+    		if(k == middle) {
+    			return a[k];
+    		} else if(k < middle) {
+    			right = middle - 1;
+    		} else {
+    			left = middle + 1;
+    		}    		
+    	}
+    	
+    	return null;
+    }
+    
+    private static <T extends Comparable<? super T>> int pivot(T[] a, int left, int right) {
+    	return left;
+    }
+    
+    // assumptions: Each row is sorted, each column is sorted
+    public static <T extends Comparable<? super T>> T nthElement(T[][] a, int k) {
+    	Set<Cell<T>> seen = new HashSet<Cell<T>>();
+    	MinHeap<Cell<T>> heap = new MinHeap<Cell<T>>(k + 1);
+    	
+    	Cell<T> origin = new Cell<T>(0, 0, a[0][0]);
+    	seen.add(origin);
+    	heap.offer(origin);
+    	int counter = 0;
+    	
+    	while(counter <= k && !heap.isEmpty()) {
+    		Cell<T> current = heap.poll();
+    		    		
+    		if(counter == k) {
+    			return current.value;
+    		}
+    		
+    		counter++;
+    		
+    		if(current.x < a.length - 1) {
+    			Cell<T> down = new Cell<T>(current.x + 1, current.y, a[current.x + 1][current.y]);
+    			if(seen.add(down)) {
+    				heap.offer(down);
+    			}
+    		}
+    		
+    		if(current.y < a[0].length - 1) {
+    			Cell<T> right = new Cell<T>(current.x, current.y + 1, a[current.x][current.y + 1]);
+    			if(seen.add(right)) {
+    				heap.offer(right);
+    			}
+    		}
+    	}
+    	
+    	throw new IllegalStateException("Not enough elements in the heap");
+    }
+    
+    private static class Cell<T extends Comparable <? super T>> implements Comparable<Cell<T>> {
+
+    	final int x;
+    	final int y;
+    	final T value;
+    	
+    	Cell(int x, int y, T value) {
+    		this.x = x;
+    		this.y = y;
+    		this.value = value;
+    	}
+
+		public int compareTo(Cell<T> o) {
+			return value.compareTo(o.value);
+		}
+
+		@Override
+		public int hashCode() {
+			return Objects.hashCode(value, x, y);
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			@SuppressWarnings("unchecked")
+			Cell<T> other = (Cell<T>) obj;
+			if (!value.equals(other.value))
+				return false;
+			if (x != other.x)
+				return false;
+			if (y != other.y)
+				return false;
+			return true;
+		}    
+    }
+    
+    public static <T extends Comparable<? super T>> int occurences(T[] a, T elem) {
+    	int rightSearch = rightSearch(a, elem, 0, a.length -1);
+		int leftSearch = leftSearch(a, elem, 0, a.length - 1);
+		return (rightSearch < 0 || leftSearch < 0) ? 0 : rightSearch -  leftSearch + 1;
+    }
+    
+    private static <T extends Comparable<? super T>> int leftSearch(T[] a, T elem, int left, int right) {
+    	if(left > right) { return -1; }
+    	
+    	while(left < right) {
+    		int middle = (left + right) >>> 1;
+    		int cmp = elem.compareTo(a[middle]);
+    		
+    		if(cmp == 0) {
+    			right = middle;
+    		} else if(cmp < 0) {
+    			right = middle - 1;
+    		} else {
+    			left = middle + 1;
+    		}
+    	}
+    	
+    	return elem.compareTo(a[left]) == 0 ? left: -1;
+    }
+    
+    private static <T extends Comparable<? super T>> int rightSearch(T[] a, T elem, int left, int right) {
+    	if(left > right) { return -1; }
+    	
+    	if(left == right) {
+    		return elem.compareTo(a[left]) == 0 ? left : -1;
+    	}
+    	
+    	while(left < right - 1) {
+    		int middle = (left + right) >>> 1;
+    		int cmp = elem.compareTo(a[middle]);
+    		
+    		if(cmp == 0) {
+    			left = middle;
+    		} else if(cmp < 0) {
+    			right = middle - 1;
+    		} else {
+    			left = middle + 1;
+    		}
+    	}
+    	
+    	return elem.compareTo(a[right]) == 0 ? right:
+    			elem.compareTo(a[left]) == 0 ? left : 
+    				-1;
+    }    
 }

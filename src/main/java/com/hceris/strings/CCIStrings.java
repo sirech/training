@@ -167,7 +167,8 @@ public class CCIStrings {
 
         return new Frequencies(complete, partialsCount);
     }
-    
+
+    // assumptions: No duplicates
     public static List<String> permutations(String s) {
         if(s.length() == 0) {
             return Arrays.asList("");
@@ -190,19 +191,25 @@ public class CCIStrings {
     }
 
     public static List<String> permutations2(String s) {
-        return permutations2(s.toCharArray(), 0);
+        char[] chars = s.toCharArray();
+        Arrays.sort(chars);
+        return permutations2(chars, 0);
     }
 
     private static List<String> permutations2(char[] chars, int start) {
-        if(chars.length - 1 == start) {
+        if(chars.length - 1 <= start) {
             return Arrays.asList(new String(chars));
         }
 
         List<String> result = new ArrayList<String>();
+        Character last = null;
         for(int i = start; i < chars.length; i++) {
+            if(last != null && chars[i] == last) continue;
+            
             swap(chars, i, start);
             result.addAll(permutations2(chars, start + 1));
             swap(chars, i, start);
+            last = chars[i];
         }
 
         return result;

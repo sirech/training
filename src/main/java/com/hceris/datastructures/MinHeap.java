@@ -22,6 +22,8 @@ public class MinHeap<T extends Comparable<? super T>> {
     }
 
     public int size() { return size; }
+    
+    public boolean isEmpty() { return size() == 0; }
 
     public T peek() {
         checkEmpty();

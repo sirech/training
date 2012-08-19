@@ -34,4 +34,18 @@ public class MatchingTest {
 		assertEquals(7, Matching.kmp("abracadabra abbbbradacab", "abra "));
 	}
 
+	@Test
+	public void testMinimumContainingSubstringNoResult() throws Exception {
+		assertNull(Matching.minimumContainingSubstring("bbbbbbbabbbbbbbbaabb", "abc"));		
+	}
+	
+	@Test
+	public void testMinimumContainingSubstringLengthOne() throws Exception {
+		assertEquals("a", Matching.minimumContainingSubstring("bbbbbbbabbbbbbbbaabb", "a"));		
+	}
+	
+	@Test
+	public void testMinimumContainingSubstring() throws Exception {
+		assertEquals("BANC", Matching.minimumContainingSubstring("ADOBECODEBANC", "ABC"));		
+	}
 }

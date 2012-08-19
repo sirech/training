@@ -44,6 +44,24 @@ public class TreesTest {
 	}
 	
 	@Test
+	public void testInOrder() throws Exception {
+		assertEquals(Arrays.asList(1, 2, 3, 4, 5, 6, 7), Trees.inOrder(balanced));
+	}
+	
+	@Test
+	public void testInOrderIterative() throws Exception {
+		assertEquals(Arrays.asList(1, 2, 3, 4, 5, 6, 7), Trees.inOrderIterative(balanced));
+	}
+	
+	@Test
+	public void testInOrderIterativeMultiple() throws Exception {
+		assertEquals(Arrays.asList(1, 1, 2, 3, 3, 4, 4, 5, 5, 6, 7, 7, 8, 9), Trees.inOrderIterative(balanced, new Node<Integer>(5,
+				new Node<Integer>(3, new Node<Integer>(1), new Node<Integer>(4)),
+				new Node<Integer>(8, new Node<Integer>(7), new Node<Integer>(9))				
+				)));
+	}
+	
+	@Test
 	public void testIsBSTTrue() {		
 		assertTrue(Trees.isBST(balanced));
 	}
@@ -108,5 +126,12 @@ public class TreesTest {
 		assertEquals(4, (int) Trees.kElement(balanced, 3));
 		assertEquals(7, (int) Trees.kElement(balanced, 6));
 		assertEquals(null, Trees.kElement(balanced, 7));
+	}
+	
+	@Test
+	public void testNumberOfTrees() throws Exception {
+		assertEquals(1, Trees.numberOfTrees(Arrays.asList(1)));
+		assertEquals(5, Trees.numberOfTrees(Arrays.asList(1, 2, 3)));
+		assertEquals(132, Trees.numberOfTrees(Arrays.asList(1, 2, 3, 4, 5, 6)));
 	}
 }

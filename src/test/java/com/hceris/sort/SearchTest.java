@@ -112,4 +112,34 @@ public class SearchTest {
 		assertEquals(1, Search.insertionPoint(without, 2));
 		assertEquals(4, Search.insertionPoint(without, 7));
 	}
+	
+	@Test
+	public void testNthElement() {
+		assertEquals(5, (int) Search.nthElement(new Integer[] { 4, 5, 6, 7, 8, 9, 1, 2} , 3));
+	}
+	
+	@Test
+	public void testNthElementDuplicates() {
+		assertEquals(5, (int) Search.nthElement(new Integer[] { 4, 5, 6, 7, 4 , 4, 8, 1, 2, 9, 9, 1, 2} , 7));
+	}
+	
+	@Test
+	public void testNthElementMatrix() throws Exception {
+		assertEquals(16, (int) Search.nthElement(m, 6));
+		assertEquals(1, (int) Search.nthElement(m, 0));
+		assertEquals(50, (int) Search.nthElement(m, 11));
+	}
+	
+	@Test
+	public void testOccurencesNoDuplicates() throws Exception {
+		assertEquals(0, Search.occurences(sorted, 10));
+		assertEquals(1, Search.occurences(sorted, 4));
+	}
+	
+	@Test
+	public void testOccurences() throws Exception {
+		Integer[] duplicated = new Integer[] { 1, 2, 3, 4, 4, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 13, 13};
+		assertEquals(3, Search.occurences(duplicated, 4));
+		assertEquals(3, Search.occurences(duplicated, 13));
+	}
 }

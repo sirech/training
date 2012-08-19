@@ -63,4 +63,10 @@ public class CCIStringsTest {
 		List<String> permutations = CCIStrings.permutations2("abc");
 		assertEquals("[abc, acb, bac, bca, cba, cab]", permutations.toString());
 	}
+	
+	@Test
+	public void testPermutations2WithDuplicates() throws Exception {
+		List<String> permutations = CCIStrings.permutations2("abbc");
+		assertEquals("[abbc, abcb, acbb, babc, bacb, bbac, bbca, bcba, bcab, cbba, cbab, cabb]", permutations.toString());
+	}
 }
