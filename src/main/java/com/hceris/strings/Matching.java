@@ -1,7 +1,5 @@
 package com.hceris.strings;
 
-import java.util.Arrays;
-
 import com.google.common.base.Preconditions;
 
 public class Matching {
