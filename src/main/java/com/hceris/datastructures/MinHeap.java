@@ -2,7 +2,7 @@ package com.hceris.datastructures;
 
 import static com.hceris.util.Utils.swap;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 public class MinHeap<T extends Comparable<? super T>> {
@@ -14,10 +14,16 @@ public class MinHeap<T extends Comparable<? super T>> {
         a = (T[]) new Comparable[maxSize];
     }
 
-    public MinHeap(Collection<? extends T> elements) {
+    public MinHeap(List<? extends T> elements) {
         this(elements.size());
-        for(T element : elements) {
-            offer(element);
+
+        for(int i = 0; i < a.length; i++) {
+            a[i] = elements.get(i);
+        }
+
+        size = a.length;
+        for(int i = parent(a.length-1); i >= 0; i--) {
+            heapify(i);
         }
     }
 
