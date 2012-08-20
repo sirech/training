@@ -4,8 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.List;
-
 import org.junit.Test;
 
 
@@ -52,28 +50,5 @@ public class CCIStringsTest {
 		assertEquals(1, f.total);
 		assertEquals(1, f.partial);
 	
-	}
-	
-	@Test
-	public void testPermutations() throws Exception {
-		List<String> permutations = CCIStrings.permutations("abc");
-		assertEquals("[abc, bac, bca, acb, cab, cba]", permutations.toString());
-	}
-	
-	@Test
-	public void testPermutations2() throws Exception {
-		List<String> permutations = CCIStrings.permutations2("abc");
-		assertEquals("[abc, acb, bac, bca, cba, cab]", permutations.toString());
-	}
-	
-	@Test
-	public void testPermutations2WithDuplicates() throws Exception {
-		List<String> permutations = CCIStrings.permutations2("abbc");
-		assertEquals("[abbc, abcb, acbb, babc, bacb, bbac, bbca, bcba, bcab, cbba, cbab, cabb]", permutations.toString());
-	}
-	
-	@Test
-	public void testInterleave() throws Exception {
-		assertEquals("[ABCD, ACBD, ACDB, CABD, CADB, CDAB]", CCIStrings.interleave("AB", "CD").toString());		
-	}
+	}	
 }
