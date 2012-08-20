@@ -5,8 +5,8 @@ import java.util.Deque;
 import java.util.NoSuchElementException;
 
 public class QueueFromStacks<T> {
-    private final Deque<T> desc = new ArrayDeque<T>();
-    private final Deque<T> asc = new ArrayDeque<T>();
+    private final Deque<T> newer = new ArrayDeque<T>();
+    private final Deque<T> older = new ArrayDeque<T>();
 
     public QueueFromStacks(Iterable<? extends T> elements) {
     	for(T elem : elements) {
@@ -15,25 +15,28 @@ public class QueueFromStacks<T> {
     }
     
     public int size() {
-    	return desc.size() + asc.size();
+    	return newer.size() + older.size();
     }
     
     public void enqueue(T element) {
-        while(!asc.isEmpty()) {
-            desc.push(asc.pop());
-        }
-        desc.push(element);
+        newer.push(element);
     }
 
     public T dequeue() {
-        while(!desc.isEmpty()) {
-            asc.push(desc.pop());
-        }
+    	shiftStacks();
 
-        if(asc.isEmpty()) {
+        if(older.isEmpty()) {
             throw new NoSuchElementException();
         }
 
-        return asc.pop();
+        return older.pop();
     }
+
+	private void shiftStacks() {
+		if(older.isEmpty()){
+	        while(!newer.isEmpty()) {
+	        	older.push(newer.pop());
+	        }
+    	}
+	}
 }
