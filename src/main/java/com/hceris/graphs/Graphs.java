@@ -25,6 +25,7 @@ public class Graphs {
 
         Node s = g.get(source);
         d[s.index()] = 0;
+        state[s.index()] = State.Grey;
 
         LinkedList<Node> queue = new LinkedList<Node>();
         queue.addLast(s);
@@ -32,7 +33,7 @@ public class Graphs {
         while(!queue.isEmpty()) {
         	Node u = queue.removeFirst();
 
-            for(Edge e : u) {
+        	for(Edge e : u) {
                 Node v = e.destination();
                 if(state[v.index()] == State.White) {
                     state[v.index()] = State.Grey;
@@ -60,6 +61,7 @@ public class Graphs {
 
         Node s = g.get(source);
         d[s.index()] = 0;
+        state[s.index()] = State.Grey;
 
         LinkedList<Node> stack = new LinkedList<Node>();
         stack.addLast(s);
