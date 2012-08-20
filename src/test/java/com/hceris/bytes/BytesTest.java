@@ -74,4 +74,14 @@ public class BytesTest {
 	public void testAppearsOnceRestThrice() throws Exception {
 		assertEquals(6, Bytes.appearsOnceRestThrice(new int[] { 3, 2, 1, 2, 1, 2, 1, 3, 4, 4, 3, 5, 6, 5, 4, 5 }));
 	}
+	
+	@Test
+	public void testPrintBinary() throws Exception {
+		assertEquals(".11", Bytes.printBinary(0.75));
+	}
+	
+	@Test
+	public void testGetNextSameSetBits() throws Exception {
+		assertEquals(Bytes.countBits(13948), Bytes.countBits(Bytes.getNextSameSetBits(13948)));
+	}
 }
