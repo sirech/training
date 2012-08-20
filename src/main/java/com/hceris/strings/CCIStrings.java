@@ -1,6 +1,7 @@
 package com.hceris.strings;
 
 import java.util.Arrays;
+import java.util.BitSet;
 
 import com.google.common.base.Preconditions;
 
@@ -13,14 +14,14 @@ public class CCIStrings {
 
         if(s.length() > 256) { return false; }
 
-        boolean[] seen = new boolean[256];
+        BitSet seen = new BitSet(256);
         for(int i = 0; i < s.length(); i++) {
             int val = s.charAt(i);
-            if(seen[val]) {
-                return false;
+            if(seen.get(val)) {
+            	return false;
             }
 
-            seen[val] = true;
+        	seen.flip(val);
         }
 
         return true;
