@@ -389,16 +389,6 @@ public class Trees {
         return sum;
     }
 
-    static class Cell {
-        final int i;
-        final int j;
-
-        Cell(int i, int j) {
-            this.i = i;
-            this.j = j;
-        }
-    }
-
     public static Node<Cell> bstAndHeap(Cell[] a) {
         return bstAndHeap(a, 0, a.length - 1);
     }
@@ -407,18 +397,22 @@ public class Trees {
         if(left > right) {
             return null;
         }
+        
+        if(left == right) {
+        	return new Node<Cell>(a[left]);
+        }
 
-        int root = 0;
-        for(int i = 1; i < a.length; i++) {
+        int root = left;
+        for(int i = left + 1; i <= right; i++) {
             if(a[i].j > a[root].j) {
                 root = i;
             }
         }
 
         swap(a, left, root);
-        int middle = 0;
+        int middle = left;
 
-        for(int i = 1; i < a.length; i++) {
+        for(int i = left + 1; i <= right; i++) {
             if(a[i].i <= a[left].i) {
                 swap(a, i, ++middle);
             }

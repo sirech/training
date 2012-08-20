@@ -9,7 +9,6 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import com.hceris.trees.Trees.Cell;
 
 public class TreesTest {
 
@@ -158,13 +157,14 @@ public class TreesTest {
 		assertEquals(132, Trees.numberOfTrees(Arrays.asList(1, 2, 3, 4, 5, 6)));
 	}
 	
+	@Test
 	public void testtestBstAndHeap() throws Exception {
 		Cell[] a = new Cell[] { new Cell(3,7), new Cell(2,6), new Cell(5,5), new Cell(1,4), new Cell(4,3) };
-		Node<Cell> root = Trees.bstAndHeap(a);
-		assertEquals(root, a[0]);
-		assertEquals(root.left, a[1]);
-		assertEquals(root.left.left, a[3]);
-		assertEquals(root.right, a[2]);
-		assertEquals(root.left, a[4]);		
+		Node<Cell> root = Trees.bstAndHeap(a.clone());
+		assertEquals(a[0], root.value);
+		assertEquals(a[1], root.left.value);
+		assertEquals(a[3], root.left.left.value);
+		assertEquals(a[2], root.right.value);
+		assertEquals(a[4], root.right.left.value);		
 	}
 }
