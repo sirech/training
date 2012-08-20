@@ -16,7 +16,7 @@ public class TreesTest {
 				new Node<Integer>(2, new Node<Integer>(1), new Node<Integer>(3)),
 				new Node<Integer>(6, new Node<Integer>(5), new Node<Integer>(7))				
 				);
-	
+		
 	Node<Integer> unbalanced = new Node<Integer>(0, 
 				new Node<Integer>(2, new Node<Integer>(4), new Node<Integer>(5)),
 				new Node<Integer>(3, null, 
@@ -166,5 +166,20 @@ public class TreesTest {
 		assertEquals(a[3], root.left.left.value);
 		assertEquals(a[2], root.right.value);
 		assertEquals(a[4], root.right.left.value);		
+	}
+	
+	@Test
+	public void testCommonAncestor() throws Exception {
+		assertEquals(4, (int) Trees.commonAncestor(balanced, 1, 7).value);
+		assertEquals(4, (int) Trees.commonAncestor(balanced, 4, 7).value);
+		assertEquals(2, (int) Trees.commonAncestor(balanced, 1, 3).value);
+		assertEquals(2, (int) Trees.commonAncestor(balanced, 2, 3).value);
+	}
+	
+	@Test
+	public void testContainsTree() throws Exception {
+		assertTrue(Trees.containsTree(balanced, new Node<Integer>(2, new Node<Integer>(1), new Node<Integer>(3))));
+		assertFalse(Trees.containsTree(balanced, new Node<Integer>(2, null, new Node<Integer>(3))));
+		assertFalse(Trees.containsTree(balanced, new Node<Integer>(2, new Node<Integer>(1), new Node<Integer>(3, null, new Node<Integer>(7)))));
 	}
 }

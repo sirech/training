@@ -421,4 +421,60 @@ public class Trees {
 
         return new Node<Cell>(a[middle], bstAndHeap(a, left, middle - 1), bstAndHeap(a, middle + 1, right));
     }
+    
+    // does not work if either p or q are not in the tree
+    public static <T> Node<T> commonAncestor(Node<T> root, T p, T q) {
+    	if(root == null) {
+    		return null;
+    	}
+    	
+    	Node<T> x = commonAncestor(root.left, p, q);
+    	if(x != null && !x.value.equals(p) && !x.value.equals(q)) {
+    		return x;
+    	}
+    	
+    	Node<T> y = commonAncestor(root.right, p, q);
+    	if(y != null && !y.value.equals(p) && !y.value.equals(q)) {
+    		return y;
+    	}
+    	
+    	if(x != null && y != null) {
+    		return root;
+    	} else if(root.value.equals(p) || root.value.equals(q)) {
+    		return root;
+    	} else {
+    		return x == null ? y : x;
+    	}    		
+    }
+    
+    public static boolean containsTree(Node<?> root, Node<?> subTree) {
+    	if(subTree == null) {
+    		return true;
+    	}
+    	
+    	if(root == null) {
+    		return false;
+    	}
+    	
+    	if(root.value.equals(subTree.value)) {
+    		if(match(root, subTree)) {
+    			return true;
+    		}
+    	}
+    	
+    	return containsTree(root.left, subTree) || containsTree(root.right, subTree);
+    }
+    
+    private static boolean match(Node<?> root, Node<?> subTree) {
+    	if(root == null && subTree == null) {
+    		return true;
+    	}
+    	
+    	if(root == null || subTree == null) {
+    		return false;
+    	}
+    	
+    	return root.value.equals(subTree.value) && match(root.left, subTree.left)
+    											&& match(root.right, subTree.right);
+    }
 }
