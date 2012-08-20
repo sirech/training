@@ -60,12 +60,10 @@ public class StackOfStacks<T> {
     }
 
     private Deque<T> firstNonEmpty() {
-        for(Deque<T> stack : stacks) {
-            if(!stack.isEmpty()) {
-                return stack;
-            }
-        }
-        return null;
+    	if(stacks.isEmpty()) {
+    		return null;
+    	}
+    	return stacks.getFirst();
     }
 
     public void push(T elem) {
@@ -76,10 +74,8 @@ public class StackOfStacks<T> {
     private Deque<T> firstWithSpace() {
         if(stacks.isEmpty() || stacks.getFirst().size() == stackSize) {
             Deque<T> stack = new ArrayDeque<T>(stackSize);
-            stacks.addFirst(stack);
-            return stack;
-        } else {
-            return stacks.getFirst();
+            stacks.addFirst(stack);            
         }
+        return stacks.getFirst();
     }
 }
