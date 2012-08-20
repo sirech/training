@@ -28,6 +28,11 @@ public class ListsTest {
 	}
 	
 	@Test
+	public void testPartition() {
+		assertEquals(new CCILinkedList<Integer>(Arrays.asList(3, 2, 1, 5, 6)), Lists.partition(new CCILinkedList<Integer>(Arrays.asList(3, 5, 2, 1, 6)), 4));
+	}
+	
+	@Test
 	public void testLastNElements() {
 		int i = 0;
 		for(Integer result : Lists.lastNElements(Arrays.asList(-1, -2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 1, 2), 3)) {

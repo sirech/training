@@ -2,6 +2,7 @@ package com.hceris.datastructures;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
@@ -257,6 +258,35 @@ public class CCILinkedList<T> implements Iterable<T> {
         prev.next = head;
         head = newHead;
         newTail.next = null;
+    }
+
+    public boolean isPalindrome() {
+        Node<T> slow = head;
+        Node<T> fast = head;
+        LinkedList<T> stack = new LinkedList<T>();
+
+        if(fast == null) {
+            return false;            
+        }
+        
+        while(fast != null && fast.next != null) {
+            stack.addFirst(slow.data);
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        if(fast != null) {
+            slow = slow.next;
+        }
+
+        while(slow != null) {
+            if(!stack.removeFirst().equals(slow.data)) {
+                return false;
+            }
+            slow = slow.next;
+        }
+
+        return true;
     }
     
     private static class Node<T> {

@@ -45,6 +45,26 @@ public class Lists {
         return n;
     }
 
+    // Crappier version of the original problem: As we can't use nodes, we don't keep the pointer to the last, 
+    // which makes the performance depend on whether addLast is O(1) or not. Also, the merge is O(n) instead of O(1)
+    public static <T extends Comparable<? super T>> CCILinkedList<T> partition(CCILinkedList<T> l, T value) {
+    	CCILinkedList<T> less = new CCILinkedList<T>();
+    	CCILinkedList<T> more = new CCILinkedList<T>();
+    	
+    	for(T elem : l) {
+    		if(elem.compareTo(value) <= 0) {
+    			less.addLast(elem);
+    		} else {
+    			more.addLast(elem);
+    		}
+    	}
+    	
+    	for(T elem: more) {
+    		less.addLast(elem);
+    	}
+    	return less;
+    }
+    
     public static <T> Iterable<T> lastNElements(Iterable<T> it, int n) {
     	return lastNElements(it.iterator(), n);
     }

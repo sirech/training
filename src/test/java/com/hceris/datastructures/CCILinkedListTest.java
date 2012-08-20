@@ -11,6 +11,7 @@ public class CCILinkedListTest {
 	CCILinkedList<String> l = new CCILinkedList<String>(Arrays.asList("1", "2", "3", "2", "4", "5", "1"));
 	CCILinkedList<String> empty = new CCILinkedList<String>();
 	CCILinkedList<String> single = new CCILinkedList<String>(Arrays.asList("1"));
+	CCILinkedList<String> palindrome = new CCILinkedList<String>(Arrays.asList("1", "2", "3", "4", "3", "2", "1"));	
 
 	@Test
 	public void testSize() {
@@ -95,5 +96,15 @@ public class CCILinkedListTest {
 	public void testRotateRight() throws Exception {
 		l.rotateRight(2);
 		assertEquals(new CCILinkedList<String>(Arrays.asList("5", "1", "1", "2", "3", "2", "4")), l);		
+	}
+	
+	@Test
+	public void testIsPalindromeFalse() throws Exception {
+		assertFalse(l.isPalindrome());
+	}
+	
+	@Test
+	public void testIsPalindrome() throws Exception {
+		assertTrue(palindrome.isPalindrome());
 	}
 }
