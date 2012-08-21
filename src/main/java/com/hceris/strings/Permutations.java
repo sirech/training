@@ -35,22 +35,22 @@ public class Permutations {
 	public static List<String> permutations2(String s) {
 		char[] chars = s.toCharArray();
 		Arrays.sort(chars);
-		return permutations2(chars, 0);
+		List<String> result = new ArrayList<String>();
+		return permutations2(chars, 0, result);
 	}
 
-	private static List<String> permutations2(char[] chars, int start) {
-		if (chars.length - 1 <= start) {
-			return Arrays.asList(new String(chars));
+	private static List<String> permutations2(char[] chars, int start, List<String> result) {
+		if (chars.length == start) {
+			result.add(new String(chars));
 		}
-
-		List<String> result = new ArrayList<String>();
+		
 		Character last = null;
 		for (int i = start; i < chars.length; i++) {
 			if (last != null && chars[i] == last)
 				continue;
 
 			swap(chars, i, start);
-			result.addAll(permutations2(chars, start + 1));
+			permutations2(chars, start + 1, result);
 			swap(chars, i, start);
 			last = chars[i];
 		}
