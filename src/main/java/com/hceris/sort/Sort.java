@@ -5,6 +5,16 @@ import static com.hceris.util.Utils.swap;
 public class Sort {
     private Sort() {}
 
+    public static <T extends Comparable<? super T>> void insertSort(T[] a) {
+    	for(int i = 1; i < a.length; i++) {
+    		int j = i;
+    		while(j > 0 && a[j].compareTo(a[j-1]) < 0) {
+    			swap(a, j, j-1);
+    			j--;
+    		}
+    	}
+    }
+    
     public static <T extends Comparable<? super T>> void quickSort(T[] a) {
         quickSort(a, 0, a.length - 1);
     }
@@ -34,6 +44,38 @@ public class Sort {
         return left;
     }
 
+    public static <T extends Comparable<? super T>> void quickSortHoare(T[] a) {
+        quickSort(a, 0, a.length - 1);
+    }
+
+    public static <T extends Comparable<? super T>> void quickSortHoare(T[] a, int left, int right) {
+        if(left >= right) { return; }
+
+        int middle = hoare(a, left, right);
+        quickSortHoare(a, left, middle - 1);
+        quickSortHoare(a, middle + 1, right);
+    }
+    
+    private static <T extends Comparable<? super T>> int hoare(T[] a, int left, int right) {
+    	swap(a, left, pivot(a, left, right));
+    	
+    	int i = left;
+    	int j = right;
+    	
+    	while(true) {
+    		while(i <= right && a[i++].compareTo(a[left]) < 0) {}
+    		while(j >= left && a[j--].compareTo(a[left]) < 0) {}
+    		
+    		if(i >= j) {
+    			break;
+    		}
+    		
+    		swap(a, i++, j++);
+    	}
+    	
+    	return i;
+    }
+    
     public static <T extends Comparable<? super T>> void mergeSort(T[] a) {
         @SuppressWarnings("unchecked")
 		T[] aux = (T[]) new Comparable[a.length];
