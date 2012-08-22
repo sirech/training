@@ -75,4 +75,9 @@ public class MathTest {
 		assertEquals(3, Math.pow(3, 1));
 		assertEquals(1024 * 1024, Math.pow(2, 20));
 	}
+	
+	@Test
+	public void testCountZeroesInFactorial() throws Exception {
+		assertEquals(3, Math.countZeroesInFactorial(19));
+	}
 }

@@ -182,4 +182,13 @@ public class TreesTest {
 		assertFalse(Trees.containsTree(balanced, new Node<Integer>(2, null, new Node<Integer>(3))));
 		assertFalse(Trees.containsTree(balanced, new Node<Integer>(2, new Node<Integer>(1), new Node<Integer>(3, null, new Node<Integer>(7)))));
 	}
+	
+	@Test
+	public void testBstToDoublyLinkedList() throws Exception {
+		Node<Integer> l = Trees.bstToDoublyLinkedList(balanced);
+		
+		for(int i = 1; i <= 7; i++, l = l.right) {
+			assertEquals(i, (int) l.value);
+		}
+	}
 }

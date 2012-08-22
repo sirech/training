@@ -183,4 +183,52 @@ public class Sort {
 
         return inversions;
     }
+    
+    public static <T extends Comparable<? super T>> int[] findMinUnsorted(T[] a) {
+    	int left = leftBreak(a);
+    	int right = rightBreak(a);
+    	
+    	if(left == a.length) {
+    		return new int[] { -1, -1 };
+    	}
+    	
+    	T[] minmax = Search.maxmin(a, left, right);
+    	return new int[] { shrinkLeft(a, minmax[0], left), shrinkRight(a, minmax[1], right) };
+    }
+    
+    private static <T extends Comparable<? super T>> int leftBreak(T[] a) {
+    	for(int i = 0; i < a.length - 1; i++) {
+    		if(a[i].compareTo(a[i+1]) > 0) {
+    			return i;
+    		}
+    	}    	
+    	return a.length;
+    }
+    
+    private static <T extends Comparable<? super T>> int rightBreak(T[] a) {
+    	for(int i = a.length - 1; i > 0; i--) {
+    		if(a[i-1].compareTo(a[i]) > 0) {
+    			return i;
+    		}
+    	}    	
+    	return -1;
+    }
+    
+    private static <T extends Comparable<? super T>> int shrinkLeft(T[] a, T min, int left) {
+    	for(int i = left - 1; i >= 0; i--) {
+    		if(min.compareTo(a[i]) < 0) {
+    			left = i;
+    		}
+    	}
+    	return left;
+    }
+    
+    private static <T extends Comparable<? super T>> int shrinkRight(T[] a, T max, int right) {
+    	for(int i = right + 1; i < a.length; i++) {
+    		if(a[i].compareTo(max) < 0) {
+    			right = i;
+    		}
+    	}
+    	return right;
+    }
 }

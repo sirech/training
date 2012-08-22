@@ -477,4 +477,38 @@ public class Trees {
     	return root.value.equals(subTree.value) && match(root.left, subTree.left)
     											&& match(root.right, subTree.right);
     }
+    
+    private static class Edge<T> {
+    	Node<T> left;
+    	Node<T> right;
+    	
+    	Edge(Node<T> left, Node<T> right) {
+    		this.left = left;
+    		this.right = right;
+    	}
+    }
+    
+    public static <T> Node<T> bstToDoublyLinkedList(Node<T> root) {
+    	Edge<T> edges = flatten(root);
+    	return edges.left;
+    }
+    
+	private static <T> Edge<T> flatten(Node<T> root) {
+    	if(root == null) { return null; }
+    	
+    	Edge<T> left = flatten(root.left);
+    	Edge<T> right = flatten(root.right);
+    	
+    	if(left != null) {
+    		left.right.right = root;
+    		root.left = left.right;
+    	}
+    	
+    	if(right != null) {
+    		right.left.left = root;
+    		root.right = right.left;
+    	}
+    	
+    	return new Edge<T>(left != null ? left.left : root , right != null ? right.right : root);
+    }
 }
