@@ -2,6 +2,9 @@ package com.hceris.stacks;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.PriorityQueue;
+
+import com.google.common.collect.Ordering;
 
 public class Stacks {
     private Stacks() {}
@@ -47,5 +50,32 @@ public class Stacks {
     	max[a.length - k] = a[q.getFirst()];    	
     	return max;
     }
-        
+      
+    
+    public static <T extends Comparable<? super T>> T median(Iterable<T> elements) {
+    	PriorityQueue<T> minHeap = new PriorityQueue<T>();
+    	PriorityQueue<T> maxHeap = new PriorityQueue<T>(1, Ordering.natural().reverse());
+    	
+    	for(T elem : elements) {
+    		
+    		if(maxHeap.size() == minHeap.size()) {
+    			if(minHeap.peek() != null && elem.compareTo(minHeap.peek()) > 0) {
+    				maxHeap.offer(minHeap.poll());
+    				minHeap.offer(elem);
+    			} else {
+    				maxHeap.offer(elem);
+    			}
+    		} else {
+    			if(elem.compareTo(maxHeap.peek()) < 0) {
+    				minHeap.offer(maxHeap.poll());
+    				maxHeap.offer(elem);
+    			} else {
+    				minHeap.offer(elem);    				
+    			}
+    		}
+    	}
+    	
+    	// If even number of elements, the median is composed of two elements
+    	return maxHeap.poll();
+    }
 }
