@@ -145,4 +145,57 @@ public class Matching {
     	
     	return new String(s, 0, end + 1);
     }
+    
+    // supports ^, $, . and *
+    public static boolean regexp(String s, String r) {
+    	return regexp(s.toCharArray(), 0, r.toCharArray(), 0);
+    }
+    
+    private static boolean regexp(char[] s, int sCurrent, char[] r, int rCurrent) {
+    	if(rCurrent >= r.length) {
+    		return true;
+    	}
+    	
+    	if(r[rCurrent] == '^') {
+    		return strict(s, sCurrent, r, rCurrent + 1);
+    	}
+    	
+    	for(int i = sCurrent; i < s.length; i++) {
+    		if(strict(s, i, r, rCurrent)) {
+    			return true;
+    		}
+    	}
+    	
+    	return false;
+    }
+    
+    private static boolean strict(char[] s, int sCurrent, char[] r, int rCurrent) {
+    	if(rCurrent >= r.length) {
+    		return true;
+    	}
+    	
+    	if(rCurrent < r.length - 1 && r[rCurrent + 1] == '*') {
+    		return star(s, sCurrent, r[rCurrent], r, rCurrent + 2);
+    	}
+    	
+    	if(r[rCurrent] == '$') {
+    		return sCurrent >= s.length;
+    	}
+    	
+    	if(sCurrent < s.length && (r[rCurrent] == '.' || r[rCurrent] == s[sCurrent])) {
+    		return strict(s, sCurrent + 1, r, rCurrent + 1);
+    	}
+    	
+    	return false;
+    }
+    
+    private static boolean star(char[] s, int sCurrent, char repeat, char[] r, int rCurrent) {
+    	int i = sCurrent;
+    	do {
+    		if(strict(s, i, r, rCurrent)) {
+    			return true;
+    		}
+    	} while(i < s.length && (s[i++] == repeat || repeat == '.'));
+    	return false;
+    }
 }

@@ -54,4 +54,36 @@ public class MatchingTest {
 		assertEquals("flyingmonster", Matching.remove("theflyingthemonsterthe", "the"));
 		assertEquals("abaaaa", Matching.remove("aababaaaabaa", "aba"));
 	}
+	
+	@Test
+	public void testRegexpStart() throws Exception {
+		assertTrue(Matching.regexp("deliver", "^deliver"));
+		assertFalse(Matching.regexp("deliver", "^eliver"));
+	}
+	
+	@Test
+	public void testRegexpEnd() throws Exception {
+		assertTrue(Matching.regexp("deliver", "ver$"));
+		assertFalse(Matching.regexp("deliver", "e$"));
+	}
+	
+	@Test
+	public void testRegexpAny() throws Exception {
+		assertTrue(Matching.regexp("deliver", "li.er"));
+		assertFalse(Matching.regexp("deliver", "er."));
+	}
+	
+	@Test
+	public void testRegexpWildcard() throws Exception {
+		assertTrue(Matching.regexp("deliiiiiver", "li*v"));
+		assertTrue(Matching.regexp("deliiiiiver", "li*iv"));
+		assertTrue(Matching.regexp("deliver", "lie*v"));
+		assertFalse(Matching.regexp("deliiiiiver", "li*e"));
+	}
+	
+	@Test
+	public void testRegexpAll() throws Exception {
+		assertTrue(Matching.regexp("deliieeiver", "^de.i*e*i.er$"));
+		assertFalse(Matching.regexp("deliieeiver", "^de.i*e*i.ar"));
+	}
 }
