@@ -40,7 +40,7 @@ public class Permutations {
 	}
 
 	private static List<String> permutations2(char[] chars, int start, List<String> result) {
-		if (chars.length == start) {
+		if (chars.length - 1 == start) {
 			result.add(new String(chars));
 		}
 		
