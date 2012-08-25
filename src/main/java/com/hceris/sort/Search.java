@@ -309,32 +309,32 @@ public class Search {
     
     // assumptions: Each row is sorted, each column is sorted
     public static <T extends Comparable<? super T>> T nthElement(T[][] a, int k) {
-    	Set<Cell<T>> seen = new HashSet<Cell<T>>();
-    	MinHeap<Cell<T>> heap = new MinHeap<Cell<T>>(k + 1);
+    	Set<SortableCell<T>> seen = new HashSet<SortableCell<T>>();
+    	MinHeap<SortableCell<T>> heap = new MinHeap<SortableCell<T>>(k + 1);
     	
-    	Cell<T> origin = new Cell<T>(0, 0, a[0][0]);
+    	SortableCell<T> origin = new SortableCell<T>(0, 0, a[0][0]);
     	seen.add(origin);
     	heap.offer(origin);
     	int counter = 0;
     	
     	while(counter <= k && !heap.isEmpty()) {
-    		Cell<T> current = heap.poll();
+    		SortableCell<T> current = heap.poll();
     		    		
     		if(counter == k) {
-    			return current.value;
+    			return current.getValue();
     		}
     		
     		counter++;
     		
-    		if(current.x < a.length - 1) {
-    			Cell<T> down = new Cell<T>(current.x + 1, current.y, a[current.x + 1][current.y]);
+    		if(current.getX() < a.length - 1) {
+    			SortableCell<T> down = new SortableCell<T>(current.getX() + 1, current.getY(), a[current.getX() + 1][current.getY()]);
     			if(seen.add(down)) {
     				heap.offer(down);
     			}
     		}
     		
-    		if(current.y < a[0].length - 1) {
-    			Cell<T> right = new Cell<T>(current.x, current.y + 1, a[current.x][current.y + 1]);
+    		if(current.getY() < a[0].length - 1) {
+    			SortableCell<T> right = new SortableCell<T>(current.getX(), current.getY() + 1, a[current.getX()][current.getY() + 1]);
     			if(seen.add(right)) {
     				heap.offer(right);
     			}

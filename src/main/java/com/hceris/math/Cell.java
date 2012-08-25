@@ -1,21 +1,31 @@
-package com.hceris.sort;
+package com.hceris.math;
+
+import javax.annotation.Nullable;
 
 import com.google.common.base.Objects;
 
-class Cell<T extends Comparable <? super T>> implements Comparable<Cell<T>> {
+/**
+ * Class that represents a cell in a matrix.
+ * 
+ * @author sirech
+ *
+ * @param <T>
+ */
+public class Cell<T> {
 
-	final int x;
-	final int y;
-	final T value;
+	final protected int x;
+	final protected int y;
+	@Nullable
+	final protected T value;
 	
-	Cell(int x, int y, T value) {
+	public Cell(int x, int y) {
+		this(x, y, null);
+	}
+	
+	public Cell(int x, int y, @Nullable T value) {
 		this.x = x;
 		this.y = y;
 		this.value = value;
-	}
-
-	public int compareTo(Cell<T> o) {
-		return value.compareTo(o.value);
 	}
 
 	@Override
@@ -40,5 +50,17 @@ class Cell<T extends Comparable <? super T>> implements Comparable<Cell<T>> {
 		if (y != other.y)
 			return false;
 		return true;
-	}    
+	}
+	
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public T getValue() {
+		return value;
+	}
 }
