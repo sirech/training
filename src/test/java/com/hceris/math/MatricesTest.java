@@ -36,6 +36,13 @@ public class MatricesTest {
 			{ 13, 0, 0, 16}
 	};
 	
+	int[][] negatives = new int[][] {
+			{  9, -8,  1,  3, -2 },
+			{ -3,  7,  6, -2,  4 },
+			{  6, -4, -4,  8, -7 },
+			{ 12, -5,  3,  9, -5 },
+	};
+	
 	@Test
 	public void testRotateNinetyDegreesRight() {
 		Matrices.rotateNinetyDegreesRight(m);
@@ -47,5 +54,26 @@ public class MatricesTest {
 		Matrices.expandZeroes(m2);
 		assertTrue(Arrays.deepEquals(m2, zeroed));
 	}
+	
+	@Test
+	public void testMaximumSubarrayWithBorderEmpty() {
+		assertEquals(0, Matrices.maximumSubarrayWithBorder(new int[][] {
+				{ 0, 0, 0 },
+				{ 0, 0, 0 },
+				{ 0, 0, 0} }, 1));
+	}
+	
+	@Test
+	public void testMaximumSubarrayWithBorder() {
+		assertEquals(0, Matrices.maximumSubarrayWithBorder(new int[][] {
+				{ 0, 1, 0, 0 },
+				{ 0, 1, 1, 1 },
+				{ 1, 1, 0, 1 },
+				{ 1, 1, 1, 1} }, 3));
+	}
 
+	@Test
+	public void testMaximumSubarraySum() throws Exception {
+		assertEquals(38, Matrices.maximumSubarraySum(negatives));		
+	}
 }
