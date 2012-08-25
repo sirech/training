@@ -2,8 +2,13 @@ package com.hceris.math;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
+
+import com.google.common.primitives.Ints;
+import com.hceris.util.Utils;
 
 public class Math {
     private Math() {}
@@ -146,6 +151,65 @@ public class Math {
         }
 
         return best;
+    }
+
+    // assumption: unsorted array, contains negative and positive numbers
+    public static int[] subSetSum(int[] a, int target) {
+        int min = Utils.min(a);
+        int max = Utils.max(a);
+
+        Map<List<Integer>, Boolean> cache = new HashMap<List<Integer>, Boolean>();
+
+        for(int i = 0; i < a.length; i++) {
+            if(subSetSum(a, target, min, max, i, cache)) {
+                return reconstruct(a, target, i, cache);
+            }
+        }
+
+        return new int[] {};
+    }
+
+    private static boolean subSetSum(int[] a, int target, int min, int max, int i, Map<List<Integer>, Boolean> cache) {
+        if(target < min || target > max) {
+            return false;
+        }
+
+        if(i < 0 || i >= a.length) {
+            return false;
+        }
+
+        Boolean hasSubset = cache.get(Arrays.asList(i, target));
+        if(hasSubset != null) {
+            return hasSubset;
+        }
+
+        boolean result = a[i] == target ||
+            subSetSum(a, target, min, max, i-1, cache) ||
+            subSetSum(a, target - a[i], min, max, i-1, cache);
+
+        cache.put(Arrays.asList(i, target), result);
+        return result;
+    }
+
+    private static int[] reconstruct(int[] a, int target, int i, Map<List<Integer>, Boolean> cache) {
+        LinkedList<Integer> result = new LinkedList<Integer>();
+
+        while(i >= 0) {
+        	if(a[i] == target) {
+        		result.addFirst(i);
+        		break;
+        	}
+        	
+        	Boolean isThere = cache.get(Arrays.asList(i-1, target));
+        	if(isThere != null && isThere) {
+                i--;
+            } else {
+                result.addFirst(i);
+                target -= a[i];
+                i--;
+            }            
+        }
+        return Ints.toArray(result);
     }
 
     public static int divide(int a, int b) {

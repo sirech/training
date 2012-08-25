@@ -60,6 +60,11 @@ public class MathTest {
 	}
 	
 	@Test
+	public void testSubsetSum() throws Exception {
+		assertTrue(Arrays.equals(new int[] {1, 2, 3}, Math.subSetSum(new int[] { -7, -3, -2, 5, 8}, 0)));
+	}
+	
+	@Test
 	public void testDivide() {
 		assertEquals(0, Math.divide(3, 5));
 		assertEquals(1, Math.divide(5, 5));
