@@ -107,6 +107,16 @@ public class SearchTest {
 	}
 	
 	@Test
+	public void testBinarySearchMatrixFalse() throws Exception {
+		assertTrue(Arrays.equals(new int[] {-1, -1}, Search.binarySearchMatrix(m, 13)));
+	}
+	
+	@Test
+	public void testBinarySearchMatrixTrue() throws Exception {
+		assertTrue(Arrays.equals(new int[] {1, 1}, Search.binarySearchMatrix(m, 11)));
+	}
+	
+	@Test
 	public void testInsertionPoint() throws Exception {
 		assertEquals(0, Search.insertionPoint(without, 0));
 		assertEquals(1, Search.insertionPoint(without, 2));

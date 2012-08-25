@@ -10,6 +10,8 @@ import com.hceris.datastructures.MinHeap;
 
 public class Search {
     private Search() {}
+    
+    private final static int[] NOT_FOUND = new int[] { -1, -1 };
 
     public static <T extends Comparable<? super T>> int binarySearch(T[] a, T elem) {
         int left = 0;
@@ -234,7 +236,37 @@ public class Search {
             }
         }
 
-        return new int[] { -1, -1 };
+        return NOT_FOUND;
+    }
+    
+    public static <T extends Comparable<? super T>> int[] binarySearchMatrix(T[][] m, T elem) {
+    	return binarySearchMatrix(m, elem, 0, m.length - 1, 0, m[0].length -1);
+    }
+    
+    public static <T extends Comparable<? super T>> int[] binarySearchMatrix(T[][] m, T elem, int minX, int maxX, int minY, int maxY) {
+    	if(minX  > maxX || minY > maxY) {
+    		return NOT_FOUND;
+    	}
+    	
+    	if(elem.compareTo(m[minX][minY]) < 0 || elem.compareTo(m[maxX][maxY]) > 0) {
+    		return new int[] { -1, -1 };
+    	}
+    	
+    	int nextX = (minX + maxX) >>> 1;
+        int nextY = (minY + maxY) >>> 1;
+        
+        
+        int cmp = elem.compareTo(m[nextX][nextY]);
+        
+        if(cmp == 0) {
+        	return new int[] { nextX, nextY };
+        } else if(cmp < 0) {
+        	int[] idx = binarySearchMatrix(m, elem, minX, nextX - 1, minY, maxY);
+        	return idx == NOT_FOUND ? binarySearchMatrix(m, elem, nextX, maxX, nextY, maxY) : idx;
+        } else {
+        	int[] idx = binarySearchMatrix(m, elem, minX, maxX, nextY + 1, maxY);
+        	return idx == NOT_FOUND ? binarySearchMatrix(m, elem, nextX + 1, maxX, minY, nextY) : idx;
+        }
     }
     
     public static <T extends Comparable<? super T>> int insertionPoint(T[] a, T elem) {
