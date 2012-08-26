@@ -56,6 +56,18 @@ public class TreesTest {
 	}
 	
 	@Test
+	public void testToTreeFromPreorderAndInOrder() {
+		Integer[] a = new Integer[] { 3, 1, 2, 4, 5 };
+		Integer[] in = new Integer[] { 1, 2, 3, 4, 5 };
+		Node<Integer> tree = Trees.toTreeFromPreorderAndInorder(a, in);		
+		assertEquals(3, (int) tree.value);
+		assertEquals(1, (int) tree.left.value);
+		assertEquals(2, (int) tree.left.right.value);
+		assertEquals(4, (int) tree.right.value);
+		assertEquals(5, (int) tree.right.right.value);		
+	}
+	
+	@Test
 	public void testInOrder() throws Exception {
 		assertEquals(Arrays.asList(1, 2, 3, 4, 5, 6, 7), Trees.inOrder(balanced));
 	}

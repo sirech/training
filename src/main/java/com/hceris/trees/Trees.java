@@ -86,6 +86,32 @@ public class Trees {
         return root;
     }
     
+    public static <T extends Comparable<? super T>> Node<T> toTreeFromPreorderAndInorder(T[] pre, T[] in) {
+    	return toTreeFromPreorderAndInorder(pre, 0, in, 0, pre.length - 1);
+    }
+    
+    private static <T extends Comparable<? super T>> Node<T> toTreeFromPreorderAndInorder(T[] pre, int root, T[] in, int left, int right) {
+    	if(left > right) {
+    		return null;
+    	}
+    	
+    	Node<T> node = new Node<T>(pre[root]);
+    	int i = left;    	
+    	for(; i <= right; i++) {
+    		if(pre[root].equals(in[i])) {
+    			break;
+    		}
+    	}
+    	
+    	if(left == right) {
+    		return node;
+    	}
+
+    	node.left = toTreeFromPreorderAndInorder(pre, root + 1, in, left, i - 1);
+    	node.right = toTreeFromPreorderAndInorder(pre, root + (i - left) + 1, in, i + 1, right); 
+    	return node;
+    }
+    
     public static <T> List<T> inOrder(Node<T> root) {
         List<T> result = new ArrayList<T>();
         inOrder(root, result);
