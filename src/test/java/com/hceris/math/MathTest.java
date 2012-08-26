@@ -85,4 +85,9 @@ public class MathTest {
 	public void testCountZeroesInFactorial() throws Exception {
 		assertEquals(3, Math.countZeroesInFactorial(19));
 	}
+	
+	@Test
+	public void testGCD() throws Exception {
+		assertEquals(6, Math.gcd(54, 24));
+	}
 }
