@@ -117,26 +117,26 @@ public class HashMap<K,V> implements Map<K,V> {
             return value;
         }
 
-        Entry<K,V> prev = elements[index];
-        Entry<K,V> current = elements[index].next;
+        Entry<K,V> prev = null;
+        Entry<K,V> current = elements[index];
 
-        while(current != null) {
-            if(current.key.equals(key)) {
-                V value = current.value;
-
-                if(prev == elements[index]) {
-                    elements[index].next = current.next;
-                } else {
-                    prev.next = current.next;
-                }
-
-                size--;
-                return value;
-            }
+        while(current != null && !current.key.equals(key)) {            
             prev = current;
             current = current.next;
         }
-        return null;
+        
+        if(current == null) {
+        	return null;
+        } else {
+        	V value = current.value;
+        	if(prev == null) {
+        		elements[index].next = current.next;
+        	} else {
+        		prev.next = current.next;
+        	}
+        	size--;
+        	return value;
+        }
     }
 
     public int size() {
