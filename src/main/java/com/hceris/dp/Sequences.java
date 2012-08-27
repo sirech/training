@@ -273,13 +273,13 @@ public class Sequences {
         int[] min = new int[a.length];
 
         for(int i = 1; i < a.length; i++) {
-            int partial = -1;
+            int partial = Integer.MAX_VALUE;
             for(int j = 0; j < i; j++) {
-                if(a[j] + j >= i && (partial == -1 || min[j] + 1 < partial)) {
+                if(a[j] + j >= i && min[j] + 1 < partial) {
                     partial = min[j] + 1;
                 }
             }
-            min[i] = partial;
+            min[i] = partial == Integer.MAX_VALUE ? -1 : partial;
         }
 
         return min[a.length - 1];        
