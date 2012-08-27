@@ -121,6 +121,11 @@ public class SequencesTest {
 	}
 	
 	@Test
+	public void testSubarrayWithSumBiggerElement() throws Exception {
+		assertTrue(Arrays.equals(new int[] {4, 6}, Sequences.subarrayWithSum(new int[] { 3, 1, 24, 4, 6, 7, 2 }, 15)));
+	}
+	
+	@Test
 	public void testSubarrayWithSum() throws Exception {
 		assertTrue(Arrays.equals(new int[] {3, 5}, Sequences.subarrayWithSum(new int[] { 3, 1, 5, 4, 6, 7, 2 }, 17)));
 	}
