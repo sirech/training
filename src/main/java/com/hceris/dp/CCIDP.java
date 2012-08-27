@@ -8,15 +8,15 @@ public class CCIDP {
         if(n == 0 || n == 1) { return 1; }
         if(n == 2) { return 2; }
 
-        int p[] = new int[n+1];
+        int p[] = new int[3];
         p[0] = 1;
         p[1] = 1;
         p[2] = 2;
 
         for(int i = 3; i <= n; i++) {
-            p[i] = p[i-1] + p[i-2] + p[i-3];
+            p[i % 3] = p[(i-1) % 3] + p[(i-2) % 3] + p[i % 3];
         }
-        return p[n];
+        return p[n % 3];
     }
 
     public static int magicIndex(int[] a) {
