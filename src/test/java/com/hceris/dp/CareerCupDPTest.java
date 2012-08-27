@@ -11,6 +11,7 @@ public class CareerCupDPTest {
 	@Test
 	public void testMaxDistance() {
 		assertTrue(Arrays.equals(new int[]{ 1, 6 }, CareerCupDP.maxDistance(new int[] { 3, 1, 4, 5, 2, 1, 2 })));
+		assertTrue(Arrays.equals(new int[]{ 0, 6 }, CareerCupDP.maxDistance(new int[] { 3, 1, 6, 7, 2, 1, 4 })));
 	}
 
 }
