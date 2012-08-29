@@ -64,7 +64,7 @@ public class Sort {
     	
     	while(true) {
     		while(i <= right && a[i++].compareTo(a[left]) < 0) {}
-    		while(j >= left && a[j--].compareTo(a[left]) < 0) {}
+    		while(j >= left && a[j--].compareTo(a[left]) > 0) {}
     		
     		if(i >= j) {
     			break;
